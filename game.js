@@ -1,15 +1,15 @@
 function rollDices(){
 	var dices = new Array()
-	dices.push(getRandomInt(7));
-	dices.push(getRandomInt(7));
-	dices.push(getRandomInt(7));
+	dices.push(getRandomInt(6));
+	dices.push(getRandomInt(6));
+	dices.push(getRandomInt(6));
 	return(dices); 
 }
 
 function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+  return Math.floor(1 + Math.random() * Math.floor(max));
 }
 
-function getRoleByRoll(roll){
+function getActionsByRoll(roll){
 	
 }

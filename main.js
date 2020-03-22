@@ -1,8 +1,12 @@
 console.log("Hello, World!");
 
-var players = new Array()
+document.write("<p> var players: liste des joueurs<\p>")
+document.write("<p> function getPlayers(): affiche la liste des joueurs<\p>")
+document.write("<p> function addPlayer(nom): ajoute un joueur à la liste des joueurs<\p>")
+document.write("<p> function rollDices(): lance 3 dés<\p>")
+document.write("<p> function getActionsByRoll(roll): retourne les actions selon le lancé<\p>")
 
-console.log(rollDices());
+var players = new Array()
 
 /*
 let one = new Player("Manu");
