@@ -1,3 +1,8 @@
+function play() {
+  var dices = rollDices();
+  getActionsByRoll(dices);
+}
+
 function rollDices() {
   var dices = new Array();
   dices.push(getRandomInt(6));
