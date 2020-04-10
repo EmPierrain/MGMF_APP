@@ -1,6 +1,6 @@
-class Player{
-	constructor(name){
-		this.name = name;
-		this.role = "";
-	}
+class Player {
+  constructor(name) {
+    this.name = name;
+    this.role = "";
+  }
 }
