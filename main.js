@@ -10,6 +10,12 @@ document.write(
   "<p> function getActionsByRoll(roll): retourne les actions selon le lancé<p>"
 );
 document.write("<p> function Play(): lance les dés et affiche les actions<p>");
+document.write(
+  "<p> function setRole(role): Attribue le rôle role au joueur actif <p>"
+);
+document.write(
+  "<p> function roleExist(role): Retourne vrai si un role est déjà attribué <p>"
+);
 
 /*
 
@@ -42,7 +48,11 @@ function getPlayers() {
   var text = "";
   text += "<div>Liste des joueurs:</div>";
   players.forEach(function (player) {
-    text += "<div>" + player.name + "</div>";
+    text += "<div>" + player.name + " ";
+    player.roles.forEach(function (role) {
+      text += role + " ";
+    });
+    text += "</div>";
   });
   document.getElementById("playerList").innerHTML = text;
 }
