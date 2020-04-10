@@ -1,7 +1,9 @@
 console.log("Hello, World!");
 
 document.write("<p> var players: liste des joueurs<p>");
-document.write("<p> function getPlayers(): affiche la liste des joueurs<p>");
+document.write(
+  "<p> function getPlayers(): affiche la liste des joueurs dans la div playerList<p>"
+);
 document.write(
   "<p> function addPlayer(nom): ajoute un joueur à la liste des joueurs<p>"
 );
@@ -11,11 +13,21 @@ document.write(
 );
 document.write("<p> function Play(): lance les dés et affiche les actions<p>");
 
+/*
+
+
+
+
+
+
+
+*/
 document.write("<div style='height:42px; width:100%'></div>");
 
 document.write(
   "<div><label for='playerName'>Player to add:</label><input type='text' id='playerName' name='player_Name'><button type='button' onclick='addPlayer(document.getElementById(\"playerName\").value)'>Add Player</button><div>"
 );
+document.write("<div id='playerList'><p>Liste des joueurs:<p><div>");
 
 var players = new Array();
 
@@ -31,14 +43,16 @@ players.forEach(function(player){
 });*/
 
 function getPlayers() {
-  console.log("Liste des joueurs:\n");
+  var text = "";
+  text += "<p>Liste des joueurs:<p>";
   players.forEach(function (player) {
-    console.log(player.name + "\n");
+    text += "<p>" + player.name + "<p>";
   });
+  document.getElementById("playerList").innerHTML = text;
 }
 
 function addPlayer(name) {
   let player = new Player(name);
   players.push(player);
-  console.log("Player " + name + " ajouté");
+  getPlayers();
 }
