@@ -3,6 +3,7 @@ function play() {
     "Tour de " + players[index % players.length].name;
   var dices = rollDices();
   getActionsByRoll(dices);
+  getPlayers();
   index += 1;
 }
 
@@ -47,7 +48,7 @@ function getActionsByRoll(roll) {
       }
       //1 = Dieu attaque le village
       if (roll[0] == 1 || roll[1] == 1) {
-        text += dieuAttaqueLeVillage();
+        text += dieuAttaqueLeVillage(roll[2]);
       }
     }
   }
@@ -75,7 +76,7 @@ function getActionsByRoll(roll) {
       }
       //2 = Dieu attaque le village
       if (roll[0] == 2 || roll[1] == 2) {
-        text += dieuAttaqueLeVillage();
+        text += dieuAttaqueLeVillage(roll[2]);
       }
       //1
       if (roll[0] == 1 || roll[1] == 1) {
@@ -97,7 +98,7 @@ function getActionsByRoll(roll) {
       }
       //3 = Dieu attaque le village
       if (roll[0] == 3 || roll[1] == 3) {
-        text += dieuAttaqueLeVillage();
+        text += dieuAttaqueLeVillage(roll[2]);
       }
       //2
       if (roll[0] == 2 || roll[1] == 2) {
@@ -175,14 +176,12 @@ function setRole(role) {
     var playerIndex = getPlayerByRole(role);
     if (playerIndex != index % players.length) {
       var roleIndex = players[playerIndex].roles.indexOf(role);
-      //var roleIndex = getIndexByRole(playerIndex);
       players[playerIndex].roles.splice(roleIndex, 1);
       players[index % players.length].roles.push(role);
     }
   } else {
     players[index % players.length].roles.push(role);
   }
-  getPlayers();
 }
 
 function getPlayerByRole(role) {
@@ -225,8 +224,9 @@ function roleExist(role) {
   return found;
 }
 
-function dieuAttaqueLeVillage() {
-  var text = "<div>" + "Dieu attaque le village" + "</div>";
+function dieuAttaqueLeVillage(value) {
+  var text =
+    "<div>" + "Dieu attaque le village pour " + value + "gorgée(s)</div>";
   if (roleExist("Dieu")) {
     var out = false;
     text += "<div> La Catin s'interpose </div>";
@@ -251,13 +251,25 @@ function dieuAttaqueLeVillage() {
         text += "<div> Le Héro fait " + dice + "</div>";
         switch (dice) {
           case 1:
-            text += "<div> Le Héro est foudroyé et boit sec (WIP) </div>";
-            // TODO enlever le rôle de Héro et le donner à l'ecuyer si il y en a une
+            text += "<div> Le Héro est foudroyé et boit sec </div>";
+            text += "<div> Le Héro perd son rôle </div>";
+            var playerIndex = getPlayerByRole("Héro");
+            var roleIndex = players[playerIndex].roles.indexOf("Héro");
+            players[playerIndex].roles.splice(roleIndex, 1);
+            if (roleExist("Ecuyer")) {
+              text += "<div> et l'écuyer devient Héro </div>";
+              playerIndex = getPlayerByRole("Ecuyer");
+              roleIndex = players[playerIndex].roles.indexOf("Ecuyer");
+              players[playerIndex].roles.splice(roleIndex, 1);
+              players[playerIndex].roles.push("Héro");
+            }
             break;
           case 2:
           case 3:
-            text += "<div> Le Héro ne s'est pas interposé et boit (WIP) </div>";
-            // TODO Le héro boit ce que Dieu doit distribuer
+            text +=
+              "<div> Le Héro ne s'est pas interposé et boit " +
+              value +
+              " gorgée(s) </div>";
             break;
           case 4:
           case 5:
@@ -266,7 +278,10 @@ function dieuAttaqueLeVillage() {
           default:
             text +=
               "<div> Le Héro s'est interposé. Dieu est foudroyé et boit sec (WIP) </div>";
-            // TODO enlever le rôle de Dieu
+            text += "<div> Dieu perd son rôle </div>";
+            var playerIndex = getPlayerByRole("Dieu");
+            var roleIndex = players[playerIndex].roles.indexOf("Dieu");
+            players[playerIndex].roles.splice(roleIndex, 1);
             out = true;
         }
       } else {
@@ -274,8 +289,7 @@ function dieuAttaqueLeVillage() {
       }
     }
     if (!out) {
-      text += "<div> Dieu distribue (WIP) </div>";
-      // TODO récupérer les gorgées à distribuer
+      text += "<div> Dieu distribue " + value + " gorgée(s)</div>";
     }
   } else {
     text += "<div> Il n'y a pas de Dieu. Le joueur boit </div>";
