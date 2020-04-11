@@ -185,19 +185,6 @@ function setRole(role) {
   getPlayers();
 }
 
-function getIndexByRole(playerIndex) {
-  var found = false;
-  var roleIndex = 0;
-  while (!found && roleIndex < players[playerIndex].roles.length) {
-    if (players[playerIndex].roles[roleIndex] === role) {
-      found = true;
-    } else {
-      roleIndex += 1;
-    }
-  }
-  return roleIndex;
-}
-
 function getPlayerByRole(role) {
   var found = false;
   var playerIndex = 0;
