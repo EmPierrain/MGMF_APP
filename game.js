@@ -227,7 +227,6 @@ function roleExist(role) {
 
 function dieuAttaqueLeVillage() {
   var text = "<div>" + "Dieu attaque le village" + "</div>";
-  // Si il y a un Dieu
   if (roleExist("Dieu")) {
     var out = false;
     text += "<div> La Catin s'interpose </div>";
@@ -235,7 +234,7 @@ function dieuAttaqueLeVillage() {
       var dice = getRandomInt(6);
       text += "<div> La Catin fait " + dice + "</div>";
       if (dice === 1) {
-        text += "<div> La Catin s'est interposé </div>";
+        text += "<div> La Catin s'est interposée </div>";
         out = true;
       } else {
         text += "<div> La Catin boit " + dice + " gorgées </div>";
@@ -266,7 +265,7 @@ function dieuAttaqueLeVillage() {
             break;
           default:
             text +=
-              "<div> Le Héro ne s'est interposé. Dieu est foudroyé et boit sec (WIP) </div>";
+              "<div> Le Héro s'est interposé. Dieu est foudroyé et boit sec (WIP) </div>";
             // TODO enlever le rôle de Dieu
             out = true;
         }
