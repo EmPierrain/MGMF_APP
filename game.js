@@ -45,9 +45,9 @@ function getActionsByRoll(roll) {
         text += "<div>" + "Dragon" + "</div>";
         setRole("Dragon");
       }
-      //1 = Dieu attaque
+      //1 = Dieu attaque le village
       if (roll[0] == 1 || roll[1] == 1) {
-        text += "<div>" + "Dieu attaque le village" + "</div>";
+        text += dieuAttaqueLeVillage();
       }
     }
   }
@@ -75,7 +75,7 @@ function getActionsByRoll(roll) {
       }
       //2 = Dieu attaque le village
       if (roll[0] == 2 || roll[1] == 2) {
-        text += "<div>" + "Dieu attaque le village" + "</div>";
+        text += dieuAttaqueLeVillage();
       }
       //1
       if (roll[0] == 1 || roll[1] == 1) {
@@ -97,7 +97,7 @@ function getActionsByRoll(roll) {
       }
       //3 = Dieu attaque le village
       if (roll[0] == 3 || roll[1] == 3) {
-        text += "<div>" + "Dieu attaque le village" + "</div>";
+        text += dieuAttaqueLeVillage();
       }
       //2
       if (roll[0] == 2 || roll[1] == 2) {
@@ -223,4 +223,63 @@ function roleExist(role) {
     }
   }
   return found;
+}
+
+function dieuAttaqueLeVillage() {
+  var text = "<div>" + "Dieu attaque le village" + "</div>";
+  // Si il y a un Dieu
+  if (roleExist("Dieu")) {
+    var out = false;
+    text += "<div> La Catin s'interpose </div>";
+    if (roleExist("Catin")) {
+      var dice = getRandomInt(6);
+      text += "<div> La Catin fait " + dice + "</div>";
+      if (dice === 1) {
+        text += "<div> La Catin s'est interposé </div>";
+        out = true;
+      } else {
+        text += "<div> La Catin boit " + dice + " gorgées </div>";
+      }
+    } else {
+      text += "<div> Il n'y a pas de Catin </div>";
+    }
+    if (!out) {
+      text += "<div> Le Héro s'interpose</div>";
+      if (roleExist("Héro")) {
+        text += "<div> L'Oracle prédit le score du héro (WIP)</div>";
+        // TODO rôle de l'Oracle
+        dice = getRandomInt(6);
+        text += "<div> Le Héro fait " + dice + "</div>";
+        switch (dice) {
+          case 1:
+            text += "<div> Le Héro est foudroyé et boit sec (WIP) </div>";
+            // TODO enlever le rôle de Héro et le donner à l'ecuyer si il y en a une
+            break;
+          case 2:
+          case 3:
+            text += "<div> Le Héro ne s'est pas interposé et boit (WIP) </div>";
+            // TODO Le héro boit ce que Dieu doit distribuer
+            break;
+          case 4:
+          case 5:
+            text += "<div> Le Héro ne s'est pas interposé </div>";
+            break;
+          default:
+            text +=
+              "<div> Le Héro ne s'est interposé. Dieu est foudroyé et boit sec (WIP) </div>";
+            // TODO enlever le rôle de Dieu
+            out = true;
+        }
+      } else {
+        text += "<div> Il n'y a pas de Héro </div>";
+      }
+    }
+    if (!out) {
+      text += "<div> Dieu distribue (WIP) </div>";
+      // TODO récupérer les gorgées à distribuer
+    }
+  } else {
+    text += "<div> Il n'y a pas de Dieu. Le joueur boit </div>";
+  }
+  return text;
 }

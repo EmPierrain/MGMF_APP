@@ -1,4 +1,4 @@
-document.write("<p> var players: liste des joueurs<p>");
+/*document.write("<p> var players: liste des joueurs<p>");
 document.write(
   "<p> function getPlayers(): affiche la liste des joueurs dans la div playerList<p>"
 );
@@ -15,7 +15,7 @@ document.write(
 );
 document.write(
   "<p> function roleExist(role): Retourne vrai si un role est déjà attribué <p>"
-);
+);*/
 
 /*
 
@@ -59,7 +59,7 @@ function getPlayers() {
 }
 
 function addPlayer(name) {
-  if (!playerExist(name)) {
+  if (!playerExist(name) && name != "") {
     document.getElementById("playerExist").innerHTML = "";
     if (index != 0) {
       index = index % players.length;
