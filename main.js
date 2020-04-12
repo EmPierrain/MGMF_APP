@@ -1,21 +1,15 @@
-/*document.write("<p> var players: liste des joueurs<p>");
-document.write(
-  "<p> function getPlayers(): affiche la liste des joueurs dans la div playerList<p>"
-);
-document.write(
-  "<p> function addPlayer(nom): ajoute un joueur à la liste des joueurs<p>"
-);
-document.write("<p> function rollDices(): lance 3 dés<p>");
-document.write(
-  "<p> function getActionsByRoll(roll): retourne les actions selon le lancé<p>"
-);
-document.write("<p> function Play(): lance les dés et affiche les actions<p>");
-document.write(
-  "<p> function setRole(role): Attribue le rôle role au joueur actif <p>"
-);
-document.write(
-  "<p> function roleExist(role): Retourne vrai si un role est déjà attribué <p>"
-);*/
+document.write("<div>TODO List:</div>");
+document.write("<div>- Ajouter le rôle du Dragon</div>");
+document.write("<div>- Ajouter des explications + conte</div>");
+document.write("<div>- Ajouter la bataille de Héros et de Dieu</div>");
+document.write("<div>- Ajouter Les rôles spéciaux</div>");
+document.write("<div>- Supprimer un joueur</div>");
+document.write("<div>- Rôles incompatibles</div>");
+document.write("<div>- Rajouter rôle de l'Oracle</div>");
+document.write("<div>- Rajouter le rôle de l'Aubergiste</div>");
+document.write("<div>- Pas d'Ecuyer si pas de Héros</div>");
+document.write("<div>- Rendre ça jolie? PTDR</div>");
+document.write("<div>- Ajouter commentaire au code</div>");
 
 /*
 
@@ -24,8 +18,8 @@ document.write(
 
 
 
-
 */
+
 document.write("<div style='height:42px; width:100%'></div>");
 
 document.write(
@@ -62,7 +56,7 @@ function addPlayer(name) {
   if (!playerExist(name) && name != "") {
     document.getElementById("playerExist").innerHTML = "";
     if (index != 0) {
-      index = index % players.length;
+      index = index;
     }
     document.getElementById("playerName").value = "";
     let player = new Player(name);

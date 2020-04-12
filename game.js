@@ -1,10 +1,9 @@
 function play() {
-  document.getElementById("round").innerHTML =
-    "Tour de " + players[index % players.length].name;
+  document.getElementById("round").innerHTML = "Tour de " + players[index].name;
   var dices = rollDices();
   getActionsByRoll(dices);
   getPlayers();
-  index += 1;
+  index = (index + 1) % players.length;
 }
 
 function rollDices() {
@@ -116,6 +115,17 @@ function getActionsByRoll(roll) {
   }
   //3
   if (roll[0] == 3 || roll[1] == 3) {
+    if (players[index].roles.includes("Prisonnier")) {
+      players[index].roles.splice("Prisonnier");
+      text +=
+        "<div>" + "Le joueur sort de prison. Il boit pour fêter ça" + "</div>";
+    }
+    if (roleExist("Prisonnier")) {
+      text +=
+        "<div>" +
+        "Le Prisonnier boit aurant qu'il y a de 3 dans le lancé" +
+        "</div>";
+    }
     //333 = Apprenti
     if (roll[0] == 3 && roll[1] == 3 && roll[2] == 3) {
       text += "<div>" + "Apprenti" + "</div>";
@@ -130,7 +140,12 @@ function getActionsByRoll(roll) {
       //2 = Prisonnier
       if (roll[0] == 2 || roll[1] == 2) {
         text += "<div>" + "Prisonnier" + "</div>";
-        setRole("Prisonnier");
+        if (roleExist("Prisonnier")) {
+          text +=
+            "<div> Il y a déjà quelqu'un en prison. Le lancé ne sert à rien, le joueur boit </div>";
+        } else {
+          setRole("Prisonnier");
+        }
       }
       //1 = Ecuyer
       if (roll[0] == 1 || roll[1] == 1) {
@@ -154,7 +169,7 @@ function getActionsByRoll(roll) {
       }
       //2 = Oracle
       if (roll[0] == 1 || roll[1] == 1) {
-        text += "<div>" + "Oracle" + "</div>";
+        text += "<div>" + "Oracle (WIP)" + "</div>";
         setRole("Oracle");
       }
     }
@@ -180,13 +195,13 @@ function getActionsByRoll(roll) {
 function setRole(role) {
   if (roleExist(role)) {
     var playerIndex = getPlayerByRole(role);
-    if (playerIndex != index % players.length) {
+    if (playerIndex != index) {
       var roleIndex = players[playerIndex].roles.indexOf(role);
       players[playerIndex].roles.splice(roleIndex, 1);
-      players[index % players.length].roles.push(role);
+      players[index].roles.push(role);
     }
   } else {
-    players[index % players.length].roles.push(role);
+    players[index].roles.push(role);
   }
 }
 
@@ -232,7 +247,7 @@ function roleExist(role) {
 
 function dieuAttaqueLeVillage(value) {
   var text =
-    "<div>" + "Dieu attaque le village pour " + value + "gorgée(s)</div>";
+    "<div>" + "Dieu attaque le village pour " + value + " gorgée(s)</div>";
   if (roleExist("Dieu")) {
     var out = false;
     text += "<div> La Catin s'interpose </div>";
@@ -279,7 +294,8 @@ function dieuAttaqueLeVillage(value) {
             break;
           case 4:
           case 5:
-            text += "<div> Le Héro ne s'est pas interposé </div>";
+            text +=
+              "<div> Le Héro ne s'est pas interposé mais se protège lui-même </div>";
             break;
           default:
             text +=
