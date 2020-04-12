@@ -10,6 +10,7 @@ document.write("<div>- Rajouter le rôle de l'Aubergiste</div>");
 document.write("<div>- Pas d'Ecuyer si pas de Héros</div>");
 document.write("<div>- Rendre ça jolie? PTDR</div>");
 document.write("<div>- Ajouter commentaire au code</div>");
+document.write("<div>- Quand on rentre en prison on perd ses autres rôles </div>");
 
 /*
 
