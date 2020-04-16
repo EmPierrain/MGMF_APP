@@ -368,6 +368,7 @@ function dieuAttaqueLeVillage(value) {
       text += "<div> La Catin fait " + dice + "</div>";
       if (dice === 1) {
         text += "<div> La Catin s'est interposée </div>";
+        text += "<div> Dieu boit " + value + " gorgée(s) </div>";
         out = true;
       } else {
         text += "<div> La Catin boit " + dice + " gorgées </div>";
