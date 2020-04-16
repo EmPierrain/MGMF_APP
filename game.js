@@ -21,7 +21,7 @@ function getRandomInt(max) {
 function getActionsByRoll(roll) {
   var text = "";
   document.getElementById("dices").innerHTML =
-    "Lancé de dés: " +
+    "Lancer de dés: " +
     "<span class='dice'>" +
     roll[0] +
     "</span> <span class='dice'>" +
@@ -62,7 +62,7 @@ function getActionsByRoll(roll) {
         if (roll[0] == 6 && roll[1] == 6 && roll[2] == 6) {
           text +=
             "<div>" +
-            "666, le joueur devient Démon et distribue le dés spécial à chaque lancé jusqu'à son prochain tour" +
+            "666, le joueur devient Démon et distribue le dé spécial à chaque lancer jusqu'à son prochain tour" +
             "</div>";
           text +=
             "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
@@ -146,7 +146,7 @@ function getActionsByRoll(roll) {
         if (roll[0] == 4 && roll[1] == 4 && roll[2] == 4) {
           text +=
             "<div>" +
-            "444, le joueur devient la Gourgandine. Il doit s'interposer à chaque lancé de dés de la même façon que la Catin " +
+            "444, le joueur devient la Gourgandine. Il doit s'interposer à chaque lancer de dés de la même façon que la Catin " +
             "</div>";
           text +=
             "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
@@ -168,7 +168,7 @@ function getActionsByRoll(roll) {
           if (roll[0] == 2 || roll[1] == 2) {
             text +=
               "<div>" +
-              "51, C'est la Fête au village!!! Tout le monde boit " +
+              "42, C'est la Fête au village!!! Tout le monde boit " +
               roll[2];
             (" gorgées</div>");
           }
@@ -187,7 +187,7 @@ function getActionsByRoll(roll) {
         if (roleExist("Prisonnier")) {
           text +=
             "<div>" +
-            "Le Prisonnier boit autant qu'il y a de 3 dans le lancé" +
+            "Le Prisonnier boit autant qu'il y a de 3 dans le lancer" +
             "</div>";
         }
         //333 = Apprenti
@@ -206,17 +206,17 @@ function getActionsByRoll(roll) {
               "<div>" +
               "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
               "</div>";
-            setRole("Héro");
+            setRole("Héros");
           }
           //2 = Prisonnier
           if (roll[0] == 2 || roll[1] == 2) {
             text +=
               "<div>" +
-              "32, le joueur devient Prisonnier et boira à chaque dés valant 3" +
+              "32, le joueur devient Prisonnier et boira à chaque dé valant 3" +
               "</div>";
             if (roleExist("Prisonnier")) {
               text +=
-                "<div> Il y a déjà quelqu'un en prison. Le lancé ne sert à rien, le joueur boit </div>";
+                "<div> Il y a déjà quelqu'un en prison. Le lancer ne sert à rien, le joueur boit </div>";
             } else {
               while (players[index].roles.length != 0) {
                 players[index].roles.splice(0, 1);
@@ -237,12 +237,12 @@ function getActionsByRoll(roll) {
             "31, le joueur devient Ecuyer et boira autant de gorgées que le Héros" +
             "</div>";
 
-          if (roleExist("Héro")) {
+          if (roleExist("Héros")) {
             setRole("Ecuyer");
           } else {
             text +=
               "<div>" +
-              "Un Ecuyer n'est rien sans son Héros. Le lancé est annulé et le joueur boit" +
+              "Un Ecuyer n'est rien sans son Héros. Le lancer est annulé et le joueur boit" +
               "</div>";
           }
         }
@@ -265,13 +265,13 @@ function getActionsByRoll(roll) {
               "<div>" +
               "22, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
               "</div>";
-            setRole("Héro");
+            setRole("Héros");
           }
           //2 = Oracle
           if (roll[0] == 1 || roll[1] == 1) {
             text +=
               "<div>" +
-              "21, le joueur devient Oracle et tentera de prédire le lancé du Héros (WIP)" +
+              "21, le joueur devient Oracle et tentera de prédire le lancer du Héros (WIP)" +
               "</div>";
             setRole("Oracle");
           }
@@ -283,19 +283,19 @@ function getActionsByRoll(roll) {
         if (roll[0] == 1 && roll[1] == 1 && roll[2] == 1) {
           text +=
             "<div>" +
-            "111, le joueur devient le Clochard et boira le dés spécial à chaque lancé pendant un tour" +
+            "111, le joueur devient le Clochard et boira le dé spécial à chaque lancer pendant un tour" +
             "</div>";
           text +=
             "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
           //setRole("Clochard");
         } else {
-          //1 = Héro
+          //1 = Héros
           if (roll[0] == 1 && roll[1] == 1) {
             text +=
               "<div>" +
               "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
               "</div>";
-            setRole("Héro");
+            setRole("Héros");
           }
         }
       }
@@ -377,42 +377,42 @@ function dieuAttaqueLeVillage(value) {
       text += "<div> Il n'y a pas de Catin </div>";
     }
     if (!out) {
-      text += "<div> Le Héro s'interpose</div>";
-      if (roleExist("Héro")) {
-        text += "<div> L'Oracle prédit le score du héro (WIP)</div>";
+      text += "<div> Le Héros s'interpose</div>";
+      if (roleExist("Héros")) {
+        text += "<div> L'Oracle prédit le score du héros (WIP)</div>";
         // TODO rôle de l'Oracle
         dice = getRandomInt(6);
-        text += "<div> Le Héro fait " + dice + "</div>";
+        text += "<div> Le Héros fait " + dice + "</div>";
         switch (dice) {
           case 1:
-            text += "<div> Le Héro est foudroyé et boit sec </div>";
-            text += "<div> Le Héro perd son rôle </div>";
-            var playerIndex = getPlayerByRole("Héro");
-            var roleIndex = players[playerIndex].roles.indexOf("Héro");
+            text += "<div> Le Héros est foudroyé et boit sec </div>";
+            text += "<div> Le Héros perd son rôle </div>";
+            var playerIndex = getPlayerByRole("Héros");
+            var roleIndex = players[playerIndex].roles.indexOf("Héros");
             players[playerIndex].roles.splice(roleIndex, 1);
             if (roleExist("Ecuyer")) {
-              text += "<div> et l'écuyer devient Héro </div>";
+              text += "<div> et l'écuyer devient Héros </div>";
               playerIndex = getPlayerByRole("Ecuyer");
               roleIndex = players[playerIndex].roles.indexOf("Ecuyer");
               players[playerIndex].roles.splice(roleIndex, 1);
-              players[playerIndex].roles.push("Héro");
+              players[playerIndex].roles.push("Héros");
             }
             break;
           case 2:
           case 3:
             text +=
-              "<div> Le Héro ne s'est pas interposé et boit " +
+              "<div> Le Héros ne s'est pas interposé et boit " +
               value +
               " gorgée(s) </div>";
             break;
           case 4:
           case 5:
             text +=
-              "<div> Le Héro ne s'est pas interposé mais se protège lui-même </div>";
+              "<div> Le Héros ne s'est pas interposé mais se protège lui-même </div>";
             break;
           default:
             text +=
-              "<div> Le Héro s'est interposé. Dieu est foudroyé et boit sec (WIP) </div>";
+              "<div> Le Héros s'est interposé. Dieu est foudroyé et boit sec (WIP) </div>";
             text += "<div> Dieu perd son rôle </div>";
             var playerIndex = getPlayerByRole("Dieu");
             var roleIndex = players[playerIndex].roles.indexOf("Dieu");
@@ -420,7 +420,7 @@ function dieuAttaqueLeVillage(value) {
             out = true;
         }
       } else {
-        text += "<div> Il n'y a pas de Héro </div>";
+        text += "<div> Il n'y a pas de Héros </div>";
       }
     }
     if (!out) {

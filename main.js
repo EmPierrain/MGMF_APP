@@ -39,7 +39,7 @@ document.write(
 );
 document.write("<p><div id='round'>Tour de </div>");
 
-document.write("<p><div id='dices'>Lancé de dés:</div>");
+document.write("<p><div id='dices'>Lancer de dés:</div>");
 
 document.write("<div id='actions'>Actions:</div>");
 
