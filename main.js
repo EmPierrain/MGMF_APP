@@ -3,14 +3,19 @@ document.write("<div>- Ajouter le rôle du Dragon</div>");
 document.write("<div>- Ajouter des explications + conte</div>");
 document.write("<div>- Ajouter la bataille de Héros et de Dieu</div>");
 document.write("<div>- Ajouter Les rôles spéciaux</div>");
+document.write("<div>. Clochard</div>");
+document.write("<div>. Maitre du destin</div>");
+document.write("<div>. Aprenti</div>");
+document.write("<div>. Gourgandine</div>");
+document.write("<div>. Impératrice</div>");
+document.write("<div>. Démon</div>");
 document.write("<div>- Supprimer un joueur</div>");
 document.write("<div>- Rôles incompatibles</div>");
 document.write("<div>- Rajouter rôle de l'Oracle</div>");
 document.write("<div>- Rajouter le rôle de l'Aubergiste</div>");
-document.write("<div>- Pas d'Ecuyer si pas de Héros</div>");
 document.write("<div>- Rendre ça jolie? PTDR</div>");
 document.write("<div>- Ajouter commentaire au code</div>");
-document.write("<div>- Quand on rentre en prison on perd ses autres rôles </div>");
+document.write("<div>- Associer un rôle à un joueur pendant un tour</div>");
 
 /*
 

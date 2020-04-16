@@ -22,174 +22,203 @@ function getActionsByRoll(roll) {
   var text = "";
   document.getElementById("dices").innerHTML =
     "Lancé de dés: " + roll[0] + " " + roll[1] + " " + roll[2];
-  //6
-  if (roll[0] == 6 || roll[1] == 6) {
-    //Distribution
-    if (roll[0] == 6) {
-      text += "<div>" + "Distribue " + roll[1] + "</div>";
+  if (
+    players[index].roles.includes("Prisonnier") &&
+    (roll[0] === 3 || roll[1] === 3)
+  ) {
+    players[index].roles.splice("Prisonnier");
+    text +=
+      "<div>" + "Le joueur sort de prison. Il boit pour fêter ça" + "</div>";
+  } else {
+    if (players[index].roles.includes("Prisonnier")) {
+      text +=
+        "<div>" +
+        "Le joueur ne sort pas de prison. Son lancer ne sert à rien, il boit" +
+        "</div>";
     } else {
-      text += "<div>" + "Distribue " + roll[0] + "</div>";
-    }
-    //666 = Démon
-    if (roll[0] == 6 && roll[1] == 6 && roll[2] == 6) {
-      text += "<div>" + "Démon" + "</div>";
-      text += "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-      //setRole("Démon");
-    } else {
-      //6 = Dieu
-      if (roll[0] == 6 && roll[1] == 6) {
-        text += "<div>" + "Dieu" + "</div>";
-        setRole("Dieu");
+      //6
+      if (roll[0] == 6 || roll[1] == 6) {
+        //Distribution
+        if (roll[0] == 6) {
+          text += "<div>" + "Distribue " + roll[1] + "</div>";
+        } else {
+          text += "<div>" + "Distribue " + roll[0] + "</div>";
+        }
+        //666 = Démon
+        if (roll[0] == 6 && roll[1] == 6 && roll[2] == 6) {
+          text += "<div>" + "Démon" + "</div>";
+          text +=
+            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+          //setRole("Démon");
+        } else {
+          //6 = Dieu
+          if (roll[0] == 6 && roll[1] == 6) {
+            text += "<div>" + "Dieu" + "</div>";
+            setRole("Dieu");
+          }
+          //5 = Dragon
+          if (roll[0] == 5 || roll[1] == 5) {
+            text += "<div>" + "Dragon" + "</div>";
+            setRole("Dragon");
+          }
+          //1 = Dieu attaque le village
+          if (roll[0] == 1 || roll[1] == 1) {
+            text += dieuAttaqueLeVillage(roll[2]);
+          }
+        }
       }
-      //5 = Dragon
+      //5
       if (roll[0] == 5 || roll[1] == 5) {
-        text += "<div>" + "Dragon" + "</div>";
-        setRole("Dragon");
+        //555 = Impératrice
+        if (roll[0] == 5 && roll[1] == 5 && roll[2] == 5) {
+          text += "<div>" + "Impératrice" + "</div>";
+          text +=
+            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+          //setRole("Impératrice");
+        } else {
+          //5 = Dieu
+          if (roll[0] == 5 && roll[1] == 5) {
+            text += "<div>" + "Dieu" + "</div>";
+            setRole("Dieu");
+          }
+          //4 = Princesse
+          if (roll[0] == 4 || roll[1] == 4) {
+            text += "<div>" + "Princesse" + "</div>";
+            setRole("Princesse");
+          }
+          //3 = Aubergiste
+          if (roll[0] == 3 || roll[1] == 3) {
+            text += "<div>" + "Aubergiste" + "</div>";
+            setRole("Aubergiste");
+          }
+          //2 = Dieu attaque le village
+          if (roll[0] == 2 || roll[1] == 2) {
+            text += dieuAttaqueLeVillage(roll[2]);
+          }
+          //1
+          if (roll[0] == 1 || roll[1] == 1) {
+            text += "<div>" + "Fête au village" + "</div>";
+          }
+        }
       }
-      //1 = Dieu attaque le village
-      if (roll[0] == 1 || roll[1] == 1) {
-        text += dieuAttaqueLeVillage(roll[2]);
-      }
-    }
-  }
-  //5
-  if (roll[0] == 5 || roll[1] == 5) {
-    //555 = Impératrice
-    if (roll[0] == 5 && roll[1] == 5 && roll[2] == 5) {
-      text += "<div>" + "Impératrice" + "</div>";
-      text += "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-      //setRole("Impératrice");
-    } else {
-      //5 = Dieu
-      if (roll[0] == 5 && roll[1] == 5) {
-        text += "<div>" + "Dieu" + "</div>";
-        setRole("Dieu");
-      }
-      //4 = Princesse
+      //4
       if (roll[0] == 4 || roll[1] == 4) {
-        text += "<div>" + "Princesse" + "</div>";
-        setRole("Princesse");
+        //444 = Gourgandine
+        if (roll[0] == 4 && roll[1] == 4 && roll[2] == 4) {
+          text += "<div>" + "Gourgandine" + "</div>";
+          text +=
+            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+          //setRole("Gourgandine");
+        } else {
+          //4 = Dieu
+          if (roll[0] == 4 && roll[1] == 4) {
+            text += "<div>" + "Dieu" + "</div>";
+            setRole("Dieu");
+          }
+          //3 = Dieu attaque le village
+          if (roll[0] == 3 || roll[1] == 3) {
+            text += dieuAttaqueLeVillage(roll[2]);
+          }
+          //2
+          if (roll[0] == 2 || roll[1] == 2) {
+            text += "<div>" + "Fête au village" + "</div>";
+          }
+          //1 = Catin
+          if (roll[0] == 1 || roll[1] == 1) {
+            text += "<div>" + "Catin" + "</div>";
+            setRole("Catin");
+          }
+        }
       }
-      //3 = Aubergiste
+      //3
       if (roll[0] == 3 || roll[1] == 3) {
-        text += "<div>" + "Aubergiste" + "</div>";
-        setRole("Aubergiste");
-      }
-      //2 = Dieu attaque le village
-      if (roll[0] == 2 || roll[1] == 2) {
-        text += dieuAttaqueLeVillage(roll[2]);
-      }
-      //1
-      if (roll[0] == 1 || roll[1] == 1) {
-        text += "<div>" + "Fête au village" + "</div>";
-      }
-    }
-  }
-  //4
-  if (roll[0] == 4 || roll[1] == 4) {
-    //444 = Gourgandine
-    if (roll[0] == 4 && roll[1] == 4 && roll[2] == 4) {
-      text += "<div>" + "Gourgandine" + "</div>";
-      text += "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-      //setRole("Gourgandine");
-    } else {
-      //4 = Dieu
-      if (roll[0] == 4 && roll[1] == 4) {
-        text += "<div>" + "Dieu" + "</div>";
-        setRole("Dieu");
-      }
-      //3 = Dieu attaque le village
-      if (roll[0] == 3 || roll[1] == 3) {
-        text += dieuAttaqueLeVillage(roll[2]);
+        if (roleExist("Prisonnier")) {
+          text +=
+            "<div>" +
+            "Le Prisonnier boit aurant qu'il y a de 3 dans le lancé" +
+            "</div>";
+        }
+        //333 = Apprenti
+        if (roll[0] == 3 && roll[1] == 3 && roll[2] == 3) {
+          text += "<div>" + "Apprenti" + "</div>";
+          text +=
+            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+          //setRole("Apprenti");
+        } else {
+          //3 = Héro
+          if (roll[0] == 3 && roll[1] == 3) {
+            text += "<div>" + "Héro" + "</div>";
+            setRole("Héro");
+          }
+          //2 = Prisonnier
+          if (roll[0] == 2 || roll[1] == 2) {
+            text += "<div>" + "Prisonnier" + "</div>";
+            if (roleExist("Prisonnier")) {
+              text +=
+                "<div> Il y a déjà quelqu'un en prison. Le lancé ne sert à rien, le joueur boit </div>";
+            } else {
+              while (players[index].roles.length != 0) {
+                players[index].roles.splice(0, 1);
+              }
+              setRole("Prisonnier");
+            }
+          }
+        }
+        //1 = Ecuyer
+        if (roll[0] == 1 || roll[1] == 1) {
+          text += "<div>" + "Ecuyer" + "</div>";
+
+          if (roleExist("Héro")) {
+            setRole("Ecuyer");
+          } else {
+            text +=
+              "<div>" +
+              "Il n'y a pas de Héro, donc pas d'Ecuyer. Le joueur boit" +
+              "</div>";
+          }
+        }
       }
       //2
       if (roll[0] == 2 || roll[1] == 2) {
-        text += "<div>" + "Fête au village" + "</div>";
-      }
-      //1 = Catin
-      if (roll[0] == 1 || roll[1] == 1) {
-        text += "<div>" + "Catin" + "</div>";
-        setRole("Catin");
-      }
-    }
-  }
-  //3
-  if (roll[0] == 3 || roll[1] == 3) {
-    if (players[index].roles.includes("Prisonnier")) {
-      players[index].roles.splice("Prisonnier");
-      text +=
-        "<div>" + "Le joueur sort de prison. Il boit pour fêter ça" + "</div>";
-    }
-    if (roleExist("Prisonnier")) {
-      text +=
-        "<div>" +
-        "Le Prisonnier boit aurant qu'il y a de 3 dans le lancé" +
-        "</div>";
-    }
-    //333 = Apprenti
-    if (roll[0] == 3 && roll[1] == 3 && roll[2] == 3) {
-      text += "<div>" + "Apprenti" + "</div>";
-      text += "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-      //setRole("Apprenti");
-    } else {
-      //3 = Héro
-      if (roll[0] == 3 && roll[1] == 3) {
-        text += "<div>" + "Héro" + "</div>";
-        setRole("Héro");
-      }
-      //2 = Prisonnier
-      if (roll[0] == 2 || roll[1] == 2) {
-        text += "<div>" + "Prisonnier" + "</div>";
-        if (roleExist("Prisonnier")) {
+        //222 = Devin
+        if (roll[0] == 2 && roll[1] == 2 && roll[2] == 2) {
+          text += "<div>" + "Devin" + "</div>";
           text +=
-            "<div> Il y a déjà quelqu'un en prison. Le lancé ne sert à rien, le joueur boit </div>";
+            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+          //setRole("Devin");
         } else {
-          setRole("Prisonnier");
+          //2 = Héro
+          if (roll[0] == 2 && roll[1] == 2) {
+            text += "<div>" + "Héro" + "</div>";
+            setRole("Héro");
+          }
+          //2 = Oracle
+          if (roll[0] == 1 || roll[1] == 1) {
+            text += "<div>" + "Oracle (WIP)" + "</div>";
+            setRole("Oracle");
+          }
         }
       }
-      //1 = Ecuyer
+      //1
       if (roll[0] == 1 || roll[1] == 1) {
-        text += "<div>" + "Ecuyer" + "</div>";
-        setRole("Ecuyer");
+        //111 = Clochard
+        if (roll[0] == 1 && roll[1] == 1 && roll[2] == 1) {
+          text += "<div>" + "Clochard" + "</div>";
+          text +=
+            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+          //setRole("Clochard");
+        } else {
+          //1 = Héro
+          if (roll[0] == 1 && roll[1] == 1) {
+            text += "<div>" + "Héro" + "</div>";
+            setRole("Héro");
+          }
+        }
       }
     }
+    document.getElementById("actions").innerHTML =
+      "<div> Actions:</div>" + text;
   }
-  //2
-  if (roll[0] == 2 || roll[1] == 2) {
-    //222 = Devin
-    if (roll[0] == 2 && roll[1] == 2 && roll[2] == 2) {
-      text += "<div>" + "Devin" + "</div>";
-      text += "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-      //setRole("Devin");
-    } else {
-      //2 = Héro
-      if (roll[0] == 2 && roll[1] == 2) {
-        text += "<div>" + "Héro" + "</div>";
-        setRole("Héro");
-      }
-      //2 = Oracle
-      if (roll[0] == 1 || roll[1] == 1) {
-        text += "<div>" + "Oracle (WIP)" + "</div>";
-        setRole("Oracle");
-      }
-    }
-  }
-  //1
-  if (roll[0] == 1 || roll[1] == 1) {
-    //111 = Clochard
-    if (roll[0] == 1 && roll[1] == 1 && roll[2] == 1) {
-      text += "<div>" + "Clochard" + "</div>";
-      text += "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-      //setRole("Clochard");
-    } else {
-      //1 = Héro
-      if (roll[0] == 1 && roll[1] == 1) {
-        text += "<div>" + "Héro" + "</div>";
-        setRole("Héro");
-      }
-    }
-  }
-  document.getElementById("actions").innerHTML = "<div> Actions:</div>" + text;
 }
 
 function setRole(role) {
