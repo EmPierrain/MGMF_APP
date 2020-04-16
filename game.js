@@ -107,14 +107,14 @@ function getActionsByRoll(roll) {
             text +=
               "<div>" +
               "55, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
-              +"</div>";
+              "</div>";
             setRole("Dieu");
           }
           //4 = Princesse
           if (roll[0] == 4 || roll[1] == 4) {
             text +=
               "<div>" +
-              "54, Le joueur devient la Princesse et distribuera la moitié de ses gorgées au Héro" +
+              "54, Le joueur devient la Princesse et distribuera la moitié de ses gorgées au Héros" +
               "</div>";
             setRole("Princesse");
           }
@@ -300,9 +300,8 @@ function getActionsByRoll(roll) {
         }
       }
     }
-    document.getElementById("actions").innerHTML =
-      "<div> Actions:</div>" + text;
   }
+  document.getElementById("actions").innerHTML = "<div> Actions:</div>" + text;
 }
 
 function setRole(role) {
@@ -379,7 +378,7 @@ function dieuAttaqueLeVillage(value) {
     if (!out) {
       text += "<div> Le Héros s'interpose</div>";
       if (roleExist("Héros")) {
-        text += "<div> L'Oracle prédit le score du héros (WIP)</div>";
+        text += "<div> L'Oracle prédit le score du Héros (WIP)</div>";
         // TODO rôle de l'Oracle
         dice = getRandomInt(6);
         text += "<div> Le Héros fait " + dice + "</div>";
