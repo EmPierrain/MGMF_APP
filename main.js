@@ -70,7 +70,7 @@ function addPlayer(name) {
     getPlayers();
   } else {
     document.getElementById("playerExist").innerHTML =
-      "<div> Ce joueur existe déjà. Veuillez rentrer un autre nom</div>";
+      "<div> Ce joueur existe déjà ou rien n'a été renseigné. Veuillez rentrer un autre nom</div>";
   }
 }
 
