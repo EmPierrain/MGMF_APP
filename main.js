@@ -16,6 +16,7 @@ document.write("<div>- Rajouter le rôle de l'Aubergiste</div>");
 document.write("<div>- Rendre ça jolie? PTDR</div>");
 document.write("<div>- Ajouter commentaire au code</div>");
 document.write("<div>- Associer un rôle à un joueur pendant un tour</div>");
+document.write("<div>- Ajouter des easter eggs</div>");
 
 /*
 
@@ -29,7 +30,7 @@ document.write("<div>- Associer un rôle à un joueur pendant un tour</div>");
 document.write("<div style='height:42px; width:100%'></div>");
 
 document.write(
-  "<div><label for='playerName'>Player to add:</label><input type='text' id='playerName' name='player_Name'><button type='button' onclick='addPlayer(document.getElementById(\"playerName\").value)'>Add Player</button> </div>"
+  "<div><label for='playerName'>Player to add:</label><input type='text' id='playerName' name='player_Name'><button id= 'addButton' type='button' onclick='addPlayer(document.getElementById(\"playerName\").value)'>Add Player</button> </div>"
 );
 document.write("<div id='playerExist'></div>");
 document.write("<div id='playerList'>Liste des joueurs:</div>");
@@ -44,6 +45,14 @@ document.write("<div id='actions'>Actions:</div>");
 
 var players = new Array();
 var index = 0;
+
+var input = document.getElementById("playerName");
+input.addEventListener("keyup", function (event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("addButton").click();
+  }
+});
 
 function getPlayers() {
   var text = "";

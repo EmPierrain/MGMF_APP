@@ -21,7 +21,13 @@ function getRandomInt(max) {
 function getActionsByRoll(roll) {
   var text = "";
   document.getElementById("dices").innerHTML =
-    "Lancé de dés: " + roll[0] + " " + roll[1] + " " + roll[2];
+    "Lancé de dés: " +
+    "<span class='dice'>" +
+    roll[0] +
+    "</span> <span class='dice'>" +
+    roll[1] +
+    "</span> <span class='dice special'>" +
+    roll[2];
   if (
     players[index].roles.includes("Prisonnier") &&
     (roll[0] === 3 || roll[1] === 3)
@@ -116,7 +122,7 @@ function getActionsByRoll(roll) {
           if (roll[0] == 3 || roll[1] == 3) {
             text +=
               "<div>" +
-              "53, le joueur devient Aubergiste et peux faire +/-1 sur les gorgées distribuées" +
+              "53, le joueur devient Aubergiste et peut faire +/-1 sur les gorgées distribuées" +
               "</div>";
             setRole("Aubergiste");
           }
