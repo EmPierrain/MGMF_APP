@@ -1,5 +1,6 @@
 function play() {
   document.getElementById("round").innerHTML = "Tour de " + players[index].name;
+  checkSpecial();
   var dices = rollDices();
   getActionsByRoll(dices);
   getPlayers();
@@ -28,6 +29,12 @@ function getActionsByRoll(roll) {
     roll[1] +
     "</span> <span class='dice special'>" +
     roll[2];
+  if (roleExist("Clochard")) {
+    text += "<div> Le Clochard boit " + roll[2] + " gorgée(s) </div>";
+  }
+  if (roleExist("Démon")) {
+    text += "<div> Le Démon distribue " + roll[2] + " gorgée(s) </div>";
+  }
   if (
     players[index].roles.includes("Prisonnier") &&
     (roll[0] === 3 || roll[1] === 3)
@@ -64,9 +71,7 @@ function getActionsByRoll(roll) {
             "<div>" +
             "666, le joueur devient Démon et distribue le dé spécial à chaque lancer jusqu'à son prochain tour" +
             "</div>";
-          text +=
-            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-          //setRole("Démon");
+          setRole("Démon");
         } else {
           //6 = Dieu
           if (roll[0] == 6 && roll[1] == 6) {
@@ -285,9 +290,7 @@ function getActionsByRoll(roll) {
             "<div>" +
             "111, le joueur devient le Clochard et boira le dé spécial à chaque lancer pendant un tour" +
             "</div>";
-          text +=
-            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-          //setRole("Clochard");
+          setRole("Clochard");
         } else {
           //1 = Héros
           if (roll[0] == 1 && roll[1] == 1) {
@@ -430,4 +433,20 @@ function dieuAttaqueLeVillage(value) {
     text += "<div> Il n'y a pas de Dieu. Le joueur boit </div>";
   }
   return text;
+}
+
+function checkSpecial() {
+  text = "<div>";
+  if (players[index].roles.includes("Clochard")) {
+    players[index].roles.splice("Clochard");
+    setRole("Héros");
+    text +=
+      "Fin du tour spécial: le Clochard trouve une maison et devient le Héros";
+  }
+  if (players[index].roles.includes("Démon")) {
+    players[index].roles.splice("Démon");
+    setRole("Dieu");
+    text += "Fin du tour spécial: le Démon calme sa colère et devient Dieu";
+  }
+  document.getElementById("special").innerHTML = text + "</div>";
 }

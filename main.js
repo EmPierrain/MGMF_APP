@@ -3,12 +3,10 @@ document.write("<div>- Ajouter le rôle du Dragon</div>");
 document.write("<div>- Ajouter des explications + conte</div>");
 document.write("<div>- Ajouter la bataille de Héros et de Dieu</div>");
 document.write("<div>- Ajouter Les rôles spéciaux</div>");
-document.write("<div>. Clochard</div>");
 document.write("<div>. Maitre du destin</div>");
 document.write("<div>. Aprenti</div>");
 document.write("<div>. Gourgandine</div>");
 document.write("<div>. Impératrice</div>");
-document.write("<div>. Démon</div>");
 document.write("<div>- Supprimer un joueur</div>");
 document.write("<div>- Rôles incompatibles</div>");
 document.write("<div>- Rajouter rôle de l'Oracle</div>");
@@ -40,6 +38,8 @@ document.write(
 document.write("<p><div id='round'>Tour de </div>");
 
 document.write("<p><div id='dices'>Lancer de dés:</div>");
+
+document.write("<div id='special'></div>");
 
 document.write("<div id='actions'>Actions:</div>");
 
