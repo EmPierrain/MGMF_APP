@@ -20,6 +20,7 @@ function getRandomInt(max) {
 }
 
 function getActionsByRoll(roll) {
+  var jeu = true;
   var text = "";
   document.getElementById("dices").innerHTML =
     "Lancer de dés: " +
@@ -35,268 +36,285 @@ function getActionsByRoll(roll) {
   if (roleExist("Démon")) {
     text += "<div> Le Démon distribue " + roll[2] + " gorgée(s) </div>";
   }
-  if (
-    players[index].roles.includes("Prisonnier") &&
-    (roll[0] === 3 || roll[1] === 3)
-  ) {
-    players[index].roles.splice("Prisonnier");
-    text +=
-      "<div>" + "Le joueur sort de prison. Il boit pour fêter ça" + "</div>";
-  } else {
-    if (players[index].roles.includes("Prisonnier")) {
+  if (roleExist("Gourgandine")) {
+    text += "<div> La Gourgandine s'interpose !!!!</div>";
+    var dice = getRandomInt(6);
+    text += "<div> La Gourgandine fait " + dice + "</div>";
+    if (dice === 1) {
       text +=
-        "<div>" +
-        "Le joueur ne sort pas de prison. Son lancer ne sert à rien et il boit" +
-        "</div>";
+        "<div> La Gourgandine s'est interposée et le tour n'a pas lieu </div>";
+      jeu = false;
     } else {
-      //6
-      if (roll[0] == 6 || roll[1] == 6) {
-        //Distribution
-        if (roll[0] == 6) {
-          text +=
-            "<div>" +
-            "Le joueur distribue " +
-            roll[1] +
-            " gorgée(s) à qui il souhaite</div>";
-        } else {
-          text +=
-            "<div>" +
-            "Le joueur distribue " +
-            roll[0] +
-            " gorgée(s) à qui il souhaite</div>";
-        }
-        //666 = Démon
-        if (roll[0] == 6 && roll[1] == 6 && roll[2] == 6) {
-          text +=
-            "<div>" +
-            "666, le joueur devient Démon et distribue le dé spécial à chaque lancer jusqu'à son prochain tour" +
-            "</div>";
-          setRole("Démon");
-        } else {
-          //6 = Dieu
-          if (roll[0] == 6 && roll[1] == 6) {
+      text +=
+        "<div> La Gourgandine ne s'est pas interposée et boit " +
+        dice +
+        " gorgée(s)</div>";
+    }
+  }
+  if (jeu) {
+    if (
+      players[index].roles.includes("Prisonnier") &&
+      (roll[0] === 3 || roll[1] === 3)
+    ) {
+      players[index].roles.splice("Prisonnier");
+      text +=
+        "<div>" + "Le joueur sort de prison. Il boit pour fêter ça" + "</div>";
+    } else {
+      if (players[index].roles.includes("Prisonnier")) {
+        text +=
+          "<div>" +
+          "Le joueur ne sort pas de prison. Son lancer ne sert à rien et il boit" +
+          "</div>";
+      } else {
+        //6
+        if (roll[0] == 6 || roll[1] == 6) {
+          //Distribution
+          if (roll[0] == 6) {
             text +=
               "<div>" +
-              "66, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
-              "</div>";
-            setRole("Dieu");
-          }
-          //5 = Dragon
-          if (roll[0] == 5 || roll[1] == 5) {
-            text +=
-              "<div>" +
-              "65, le joueur devient LE Dragon et pourra souffler ses gorgées " +
-              "</div>";
-            setRole("Dragon");
-          }
-          //1 = Dieu attaque le village
-          if (roll[0] == 1 || roll[1] == 1) {
-            text += dieuAttaqueLeVillage(roll[2]);
-          }
-        }
-      }
-      //5
-      if (roll[0] == 5 || roll[1] == 5) {
-        //555 = Impératrice
-        if (roll[0] == 5 && roll[1] == 5 && roll[2] == 5) {
-          text +=
-            "<div>" +
-            "555, le joueur devient Impératrice et donne la moitié de ses gorgées à qui il veut" +
-            "</div>";
-          text +=
-            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-          //setRole("Impératrice");
-        } else {
-          //5 = Dieu
-          if (roll[0] == 5 && roll[1] == 5) {
-            text +=
-              "<div>" +
-              "55, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
-              "</div>";
-            setRole("Dieu");
-          }
-          //4 = Princesse
-          if (roll[0] == 4 || roll[1] == 4) {
-            text +=
-              "<div>" +
-              "54, Le joueur devient la Princesse et distribuera la moitié de ses gorgées au Héros" +
-              "</div>";
-            setRole("Princesse");
-          }
-          //3 = Aubergiste
-          if (roll[0] == 3 || roll[1] == 3) {
-            text +=
-              "<div>" +
-              "53, le joueur devient Aubergiste et peut faire +/-1 sur les gorgées distribuées" +
-              "</div>";
-            setRole("Aubergiste");
-          }
-          //2 = Dieu attaque le village
-          if (roll[0] == 2 || roll[1] == 2) {
-            text += dieuAttaqueLeVillage(roll[2]);
-          }
-          //1
-          if (roll[0] == 1 || roll[1] == 1) {
-            text +=
-              "<div>" +
-              "51, C'est la Fête au village!!! Tout le monde boit " +
-              roll[2] +
-              " gorgées</div>";
-          }
-        }
-      }
-      //4
-      if (roll[0] == 4 || roll[1] == 4) {
-        //444 = Gourgandine
-        if (roll[0] == 4 && roll[1] == 4 && roll[2] == 4) {
-          text +=
-            "<div>" +
-            "444, le joueur devient la Gourgandine. Il doit s'interposer à chaque lancer de dés de la même façon que la Catin " +
-            "</div>";
-          text +=
-            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-          //setRole("Gourgandine");
-        } else {
-          //4 = Dieu
-          if (roll[0] == 4 && roll[1] == 4) {
-            text +=
-              "<div>" +
-              "44, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
-              "</div>";
-            setRole("Dieu");
-          }
-          //3 = Dieu attaque le village
-          if (roll[0] == 3 || roll[1] == 3) {
-            text += dieuAttaqueLeVillage(roll[2]);
-          }
-          //2
-          if (roll[0] == 2 || roll[1] == 2) {
-            text +=
-              "<div>" +
-              "42, C'est la Fête au village!!! Tout le monde boit " +
-              roll[2];
-            (" gorgées</div>");
-          }
-          //1 = Catin
-          if (roll[0] == 1 || roll[1] == 1) {
-            text +=
-              "<div>" +
-              "41, Le joueur devient la Catin et s'interpose quand Dieu attaque le village" +
-              "</div>";
-            setRole("Catin");
-          }
-        }
-      }
-      //3
-      if (roll[0] == 3 || roll[1] == 3) {
-        if (roleExist("Prisonnier")) {
-          text +=
-            "<div>" +
-            "Le Prisonnier boit autant qu'il y a de 3 dans le lancer" +
-            "</div>";
-        }
-        //333 = Apprenti
-        if (roll[0] == 3 && roll[1] == 3 && roll[2] == 3) {
-          text +=
-            "<div>" +
-            "333, le joueur devient l'Apprenti et bois autant de gorgées bues par les autres joueurs" +
-            "</div>";
-          setRole("Apprenti");
-        } else {
-          //3 = Héros
-          if (roll[0] == 3 && roll[1] == 3) {
-            text +=
-              "<div>" +
-              "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
-              "</div>";
-            setRole("Héros");
-          }
-          //2 = Prisonnier
-          if (roll[0] == 2 || roll[1] == 2) {
-            text +=
-              "<div>" +
-              "32, le joueur devient Prisonnier et boira à chaque dé valant 3" +
-              "</div>";
-            if (roleExist("Prisonnier")) {
-              text +=
-                "<div> Il y a déjà quelqu'un en prison. Le lancer ne sert à rien, le joueur boit </div>";
-            } else {
-              while (players[index].roles.length != 0) {
-                players[index].roles.splice(0, 1);
-              }
-              "<div>" +
-                "Le Prisonnier perd tout ses rôles et boit " +
-                roll[2] +
-                " gorgée(s) pour fêter ça" +
-                "</div>";
-              setRole("Prisonnier");
-            }
-          }
-        }
-        //1 = Ecuyer
-        if (roll[0] == 1 || roll[1] == 1) {
-          text +=
-            "<div>" +
-            "31, le joueur devient Ecuyer et boira autant de gorgées que le Héros" +
-            "</div>";
-
-          if (roleExist("Héros")) {
-            setRole("Ecuyer");
+              "Le joueur distribue " +
+              roll[1] +
+              " gorgée(s) à qui il souhaite</div>";
           } else {
             text +=
               "<div>" +
-              "Un Ecuyer n'est rien sans son Héros. Le lancer est annulé et le joueur boit" +
-              "</div>";
+              "Le joueur distribue " +
+              roll[0] +
+              " gorgée(s) à qui il souhaite</div>";
           }
-        }
-      }
-      //2
-      if (roll[0] == 2 || roll[1] == 2) {
-        //222 = Devin
-        if (roll[0] == 2 && roll[1] == 2 && roll[2] == 2) {
-          text +=
-            "<div>" +
-            "222, le joueur deviens Devin et pourra interférer sur un des dés lancés en début de tour" +
-            "</div>";
-          text +=
-            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-          //setRole("Devin");
-        } else {
-          //2 = Héros
-          if (roll[0] == 2 && roll[1] == 2) {
+          //666 = Démon
+          if (roll[0] == 6 && roll[1] == 6 && roll[2] == 6) {
             text +=
               "<div>" +
-              "22, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
+              "666, le joueur devient Démon et distribue le dé spécial à chaque lancer jusqu'à son prochain tour" +
               "</div>";
-            setRole("Héros");
+            setRole("Démon");
+          } else {
+            //6 = Dieu
+            if (roll[0] == 6 && roll[1] == 6) {
+              text +=
+                "<div>" +
+                "66, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
+                "</div>";
+              setRole("Dieu");
+            }
+            //5 = Dragon
+            if (roll[0] == 5 || roll[1] == 5) {
+              text +=
+                "<div>" +
+                "65, le joueur devient LE Dragon et pourra souffler ses gorgées " +
+                "</div>";
+              setRole("Dragon");
+            }
+            //1 = Dieu attaque le village
+            if (roll[0] == 1 || roll[1] == 1) {
+              text += dieuAttaqueLeVillage(roll[2]);
+            }
           }
-          //2 = Oracle
+        }
+        //5
+        if (roll[0] == 5 || roll[1] == 5) {
+          //555 = Impératrice
+          if (roll[0] == 5 && roll[1] == 5 && roll[2] == 5) {
+            text +=
+              "<div>" +
+              "555, le joueur devient Impératrice et donne la moitié de ses gorgées à qui il veut" +
+              "</div>";
+            text +=
+              "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+            //setRole("Impératrice");
+          } else {
+            //5 = Dieu
+            if (roll[0] == 5 && roll[1] == 5) {
+              text +=
+                "<div>" +
+                "55, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
+                "</div>";
+              setRole("Dieu");
+            }
+            //4 = Princesse
+            if (roll[0] == 4 || roll[1] == 4) {
+              text +=
+                "<div>" +
+                "54, Le joueur devient la Princesse et distribuera la moitié de ses gorgées au Héros" +
+                "</div>";
+              setRole("Princesse");
+            }
+            //3 = Aubergiste
+            if (roll[0] == 3 || roll[1] == 3) {
+              text +=
+                "<div>" +
+                "53, le joueur devient Aubergiste et peut faire +/-1 sur les gorgées distribuées" +
+                "</div>";
+              setRole("Aubergiste");
+            }
+            //2 = Dieu attaque le village
+            if (roll[0] == 2 || roll[1] == 2) {
+              text += dieuAttaqueLeVillage(roll[2]);
+            }
+            //1
+            if (roll[0] == 1 || roll[1] == 1) {
+              text +=
+                "<div>" +
+                "51, C'est la Fête au village!!! Tout le monde boit " +
+                roll[2] +
+                " gorgées</div>";
+            }
+          }
+        }
+        //4
+        if (roll[0] == 4 || roll[1] == 4) {
+          //444 = Gourgandine
+          if (roll[0] == 4 && roll[1] == 4 && roll[2] == 4) {
+            text +=
+              "<div>" +
+              "444, le joueur devient la Gourgandine. Il doit s'interposer à chaque lancer de dés de la même façon que la Catin " +
+              "</div>";
+            text +=
+              "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+            //setRole("Gourgandine");
+          } else {
+            //4 = Dieu
+            if (roll[0] == 4 && roll[1] == 4) {
+              text +=
+                "<div>" +
+                "44, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
+                "</div>";
+              setRole("Dieu");
+            }
+            //3 = Dieu attaque le village
+            if (roll[0] == 3 || roll[1] == 3) {
+              text += dieuAttaqueLeVillage(roll[2]);
+            }
+            //2
+            if (roll[0] == 2 || roll[1] == 2) {
+              text +=
+                "<div>" +
+                "42, C'est la Fête au village!!! Tout le monde boit " +
+                roll[2];
+              (" gorgées</div>");
+            }
+            //1 = Catin
+            if (roll[0] == 1 || roll[1] == 1) {
+              text +=
+                "<div>" +
+                "41, Le joueur devient la Catin et s'interpose quand Dieu attaque le village" +
+                "</div>";
+              setRole("Catin");
+            }
+          }
+        }
+        //3
+        if (roll[0] == 3 || roll[1] == 3) {
+          if (roleExist("Prisonnier")) {
+            text +=
+              "<div>" +
+              "Le Prisonnier boit autant qu'il y a de 3 dans le lancer" +
+              "</div>";
+          }
+          //333 = Apprenti
+          if (roll[0] == 3 && roll[1] == 3 && roll[2] == 3) {
+            text +=
+              "<div>" +
+              "333, le joueur devient l'Apprenti et bois autant de gorgées bues par les autres joueurs" +
+              "</div>";
+            setRole("Apprenti");
+          } else {
+            //3 = Héros
+            if (roll[0] == 3 && roll[1] == 3) {
+              text +=
+                "<div>" +
+                "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
+                "</div>";
+              setRole("Héros");
+            }
+            //2 = Prisonnier
+            if (roll[0] == 2 || roll[1] == 2) {
+              text +=
+                "<div>" +
+                "32, le joueur devient Prisonnier et boira à chaque dé valant 3" +
+                "</div>";
+              if (roleExist("Prisonnier")) {
+                text +=
+                  "<div> Il y a déjà quelqu'un en prison. Le lancer ne sert à rien, le joueur boit </div>";
+              } else {
+                while (players[index].roles.length != 0) {
+                  players[index].roles.splice(0, 1);
+                }
+                "<div>" +
+                  "Le Prisonnier perd tout ses rôles et boit " +
+                  roll[2] +
+                  " gorgée(s) pour fêter ça" +
+                  "</div>";
+                setRole("Prisonnier");
+              }
+            }
+          }
+          //1 = Ecuyer
           if (roll[0] == 1 || roll[1] == 1) {
             text +=
               "<div>" +
-              "21, le joueur devient Oracle et tentera de prédire le lancer du Héros (WIP)" +
+              "31, le joueur devient Ecuyer et boira autant de gorgées que le Héros" +
               "</div>";
-            setRole("Oracle");
+
+            if (roleExist("Héros")) {
+              setRole("Ecuyer");
+            } else {
+              text +=
+                "<div>" +
+                "Un Ecuyer n'est rien sans son Héros. Le lancer est annulé et le joueur boit" +
+                "</div>";
+            }
           }
         }
-      }
-      //1
-      if (roll[0] == 1 || roll[1] == 1) {
-        //111 = Clochard
-        if (roll[0] == 1 && roll[1] == 1 && roll[2] == 1) {
-          text +=
-            "<div>" +
-            "111, le joueur devient le Clochard et boira le dé spécial à chaque lancer pendant un tour" +
-            "</div>";
-          setRole("Clochard");
-        } else {
-          //1 = Héros
-          if (roll[0] == 1 && roll[1] == 1) {
+        //2
+        if (roll[0] == 2 || roll[1] == 2) {
+          //222 = Devin
+          if (roll[0] == 2 && roll[1] == 2 && roll[2] == 2) {
             text +=
               "<div>" +
-              "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
+              "222, le joueur deviens Devin et pourra interférer sur un des dés lancés en début de tour" +
               "</div>";
-            setRole("Héros");
+            text +=
+              "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
+            //setRole("Devin");
+          } else {
+            //2 = Héros
+            if (roll[0] == 2 && roll[1] == 2) {
+              text +=
+                "<div>" +
+                "22, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
+                "</div>";
+              setRole("Héros");
+            }
+            //2 = Oracle
+            if (roll[0] == 1 || roll[1] == 1) {
+              text +=
+                "<div>" +
+                "21, le joueur devient Oracle et tentera de prédire le lancer du Héros (WIP)" +
+                "</div>";
+              setRole("Oracle");
+            }
+          }
+        }
+        //1
+        if (roll[0] == 1 || roll[1] == 1) {
+          //111 = Clochard
+          if (roll[0] == 1 && roll[1] == 1 && roll[2] == 1) {
+            text +=
+              "<div>" +
+              "111, le joueur devient le Clochard et boira le dé spécial à chaque lancer pendant un tour" +
+              "</div>";
+            setRole("Clochard");
+          } else {
+            //1 = Héros
+            if (roll[0] == 1 && roll[1] == 1) {
+              text +=
+                "<div>" +
+                "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
+                "</div>";
+              setRole("Héros");
+            }
           }
         }
       }
