@@ -201,9 +201,7 @@ function getActionsByRoll(roll) {
             "<div>" +
             "333, le joueur devient l'Apprenti et bois autant de gorgées bues par les autres joueurs" +
             "</div>";
-          text +=
-            "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-          //setRole("Apprenti");
+          setRole("Apprenti");
         } else {
           //3 = Héros
           if (roll[0] == 3 && roll[1] == 3) {
@@ -303,6 +301,9 @@ function getActionsByRoll(roll) {
         }
       }
     }
+  }
+  if (roleExist("Apprenti")) {
+    text += "<div> L'Apprenti n'oublie pas de prendre ses gorgées! </div>";
   }
   document.getElementById("actions").innerHTML = "<div> Actions:</div>" + text;
 }
@@ -442,6 +443,29 @@ function checkSpecial() {
     setRole("Héros");
     text +=
       "Fin du tour spécial: le Clochard trouve une maison et devient le Héros";
+  }
+  if (players[index].roles.includes("Devin")) {
+    players[index].roles.splice("Devin");
+    setRole("Oracle");
+    text += "Fin du tour spécial: Le Devin perd ses pouvoirs et devient Oracle";
+  }
+  if (players[index].roles.includes("Apprenti")) {
+    players[index].roles.splice("Apprenti");
+    setRole("Ecuyer");
+    text +=
+      "Fin du tour spécial: L'Apprenti a fini son apprentisage et devient Ecuyer";
+  }
+  if (players[index].roles.includes("Gourgandine")) {
+    players[index].roles.splice("Gourgandine");
+    setRole("Catin");
+    text +=
+      "Fin du tour spécial: La Gourgandine a fini de jouer et devient la Catin";
+  }
+  if (players[index].roles.includes("Impératrice")) {
+    players[index].roles.splice("Impératrice");
+    setRole("Princesse");
+    text +=
+      "Fin du tour spécial: L'Impératrice perd son status et devient Princesse";
   }
   if (players[index].roles.includes("Démon")) {
     players[index].roles.splice("Démon");

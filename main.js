@@ -4,7 +4,6 @@ document.write("<div>- Ajouter des explications + conte</div>");
 document.write("<div>- Ajouter la bataille de Héros et de Dieu</div>");
 document.write("<div>- Ajouter Les rôles spéciaux</div>");
 document.write("<div>. Maitre du destin</div>");
-document.write("<div>. Aprenti</div>");
 document.write("<div>. Gourgandine</div>");
 document.write("<div>. Impératrice</div>");
 document.write("<div>- Supprimer un joueur</div>");
@@ -15,6 +14,7 @@ document.write("<div>- Rendre ça jolie? PTDR</div>");
 document.write("<div>- Ajouter commentaire au code</div>");
 document.write("<div>- Associer un rôle à un joueur pendant un tour</div>");
 document.write("<div>- Ajouter des easter eggs</div>");
+document.write("<div>- Ajouter de l'intéraction</div>");
 
 /*
 
@@ -28,12 +28,12 @@ document.write("<div>- Ajouter des easter eggs</div>");
 document.write("<div style='height:42px; width:100%'></div>");
 
 document.write(
-  "<div><label for='playerName'>Player to add:</label><input type='text' id='playerName' name='player_Name'><button id= 'addButton' type='button' onclick='addPlayer(document.getElementById(\"playerName\").value)'>Add Player</button> </div>"
+  "<div><label for='playerName'>Joueur à ajouter:</label><input type='text' id='playerName' name='player_Name'><button id= 'addButton' type='button' onclick='addPlayer(document.getElementById(\"playerName\").value)'>Ajouter</button> </div>"
 );
 document.write("<div id='playerExist'></div>");
 document.write("<div id='playerList'>Liste des joueurs:</div>");
 document.write(
-  "<p><div>Zone d'action:<div><button type='button' onclick='play()'>Play a turn</button> </div></div>"
+  "<p><div>Zone d'action:<div><button type='button' onclick='play()'>Jouer un tour</button> </div></div>"
 );
 document.write("<p><div id='round'>Tour de </div>");
 
