@@ -196,11 +196,16 @@ function getActionsByRoll(roll) {
             }
             //1 = Catin
             if (roll[0] == 1 || roll[1] == 1) {
-              text +=
-                "<div>" +
-                "41, Le joueur devient la Catin et s'interpose quand Dieu attaque le village" +
-                "</div>";
-              setRole("Catin");
+              if (players[index].roles.includes("Dieu")) {
+                text +=
+                  "<div> Dieu ne saurait devenir la Catin. Son tour ne sert à rien, il boit </div>";
+              } else {
+                text +=
+                  "<div>" +
+                  "41, Le joueur devient la Catin et s'interpose quand Dieu attaque le village" +
+                  "</div>";
+                setRole("Catin");
+              }
             }
           }
         }
@@ -226,7 +231,12 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
                 "</div>";
-              setRole("Héros");
+              if (players[index].roles.includes("Dieu")) {
+                text +=
+                  "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+              } else {
+                setRole("Héros");
+              }
             }
             //2 = Prisonnier
             if (roll[0] == 2 || roll[1] == 2) {
@@ -256,9 +266,18 @@ function getActionsByRoll(roll) {
               "<div>" +
               "31, le joueur devient Ecuyer et boira autant de gorgées que le Héros" +
               "</div>";
-
             if (roleExist("Héros")) {
-              setRole("Ecuyer");
+              if (players[index].roles.includes("Dieu")) {
+                text +=
+                  "<div>Dieu ne saurait devenir l'Ecuyer. Son tour ne sert à rien, il boit</div>";
+              } else {
+                if (players[index].roles.includes("Héros")) {
+                  text +=
+                    "<div>Le Héros ne peut pas se servir lui-même. Son tour ne sert à rien, il boit</div>";
+                } else {
+                  setRole("Ecuyer");
+                }
+              }
             } else {
               text +=
                 "<div>" +
@@ -285,7 +304,12 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "22, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
                 "</div>";
-              setRole("Héros");
+              if (players[index].roles.includes("Dieu")) {
+                text +=
+                  "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+              } else {
+                setRole("Héros");
+              }
             }
             //2 = Oracle
             if (roll[0] == 1 || roll[1] == 1) {
@@ -311,9 +335,14 @@ function getActionsByRoll(roll) {
             if (roll[0] == 1 && roll[1] == 1) {
               text +=
                 "<div>" +
-                "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
+                "11, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
                 "</div>";
-              setRole("Héros");
+              if (players[index].roles.includes("Dieu")) {
+                text +=
+                  "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+              } else {
+                setRole("Héros");
+              }
             }
           }
         }
@@ -455,12 +484,17 @@ function dieuAttaqueLeVillage(value) {
 }
 
 function checkSpecial() {
-  text = "<div>";
+  text = "";
   if (players[index].roles.includes("Clochard")) {
     players[index].roles.splice("Clochard");
-    setRole("Héros");
     text +=
-      "Fin du tour spécial: le Clochard trouve une maison et devient le Héros";
+      "<div>Fin du tour spécial: le Clochard trouve une maison et devient le Héros</div>";
+    if (players[index].roles.includes("Dieu")) {
+      text +=
+        "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+    } else {
+      setRole("Héros");
+    }
   }
   if (players[index].roles.includes("Devin")) {
     players[index].roles.splice("Devin");
@@ -469,9 +503,19 @@ function checkSpecial() {
   }
   if (players[index].roles.includes("Apprenti")) {
     players[index].roles.splice("Apprenti");
-    setRole("Ecuyer");
     text +=
       "Fin du tour spécial: L'Apprenti a fini son apprentisage et devient Ecuyer";
+    if (players[index].roles.includes("Dieu")) {
+      text +=
+        "<div>Dieu ne saurait devenir l'Ecuyer. Son tour ne sert à rien, il boit</div>";
+    } else {
+      if (players[index].roles.includes("Héros")) {
+        text +=
+          "<div>Le Héros ne peut pas se servir lui-même. Son tour ne sert à rien, il boit</div>";
+      } else {
+        setRole("Ecuyer");
+      }
+    }
   }
   if (players[index].roles.includes("Gourgandine")) {
     players[index].roles.splice("Gourgandine");
@@ -490,5 +534,5 @@ function checkSpecial() {
     setRole("Dieu");
     text += "Fin du tour spécial: le Démon calme sa colère et devient Dieu";
   }
-  document.getElementById("special").innerHTML = text + "</div>";
+  document.getElementById("special").innerHTML = text;
 }
