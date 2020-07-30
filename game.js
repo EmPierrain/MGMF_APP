@@ -88,7 +88,7 @@ function getActionsByRoll(roll) {
               "<div>" +
               "666, le joueur devient Démon et distribue le dé spécial à chaque lancer jusqu'à son prochain tour" +
               "</div>";
-            setRole("Démon");
+            text += setRole("Démon");
           } else {
             //6 = Dieu
             if (roll[0] == 6 && roll[1] == 6) {
@@ -96,7 +96,7 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "66, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
                 "</div>";
-              setRole("Dieu");
+              text += setRole("Dieu");
             }
             //5 = Dragon
             if (roll[0] == 5 || roll[1] == 5) {
@@ -104,7 +104,7 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "65, le joueur devient LE Dragon et pourra souffler ses gorgées " +
                 "</div>";
-              setRole("Dragon");
+              text += setRole("Dragon");
             }
             //1 = Dieu attaque le village
             if (roll[0] == 1 || roll[1] == 1) {
@@ -122,7 +122,7 @@ function getActionsByRoll(roll) {
               "</div>";
             text +=
               "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-            //setRole("Impératrice");
+            //text+=setRole("Impératrice");
           } else {
             //5 = Dieu
             if (roll[0] == 5 && roll[1] == 5) {
@@ -130,7 +130,7 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "55, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
                 "</div>";
-              setRole("Dieu");
+              text += setRole("Dieu");
             }
             //4 = Princesse
             if (roll[0] == 4 || roll[1] == 4) {
@@ -143,7 +143,7 @@ function getActionsByRoll(roll) {
                 text +=
                   "<div>Le Héros ne peut pas devenir Princesse. Son tour ne sert à rien, le joueur boit</div>";
               } else {
-                setRole("Princesse");
+                text += setRole("Princesse");
               }
             }
             //3 = Aubergiste
@@ -152,7 +152,7 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "53, le joueur devient Aubergiste et peut faire +/-1 sur les gorgées distribuées" +
                 "</div>";
-              setRole("Aubergiste");
+              text += setRole("Aubergiste");
             }
             //2 = Dieu attaque le village
             if (roll[0] == 2 || roll[1] == 2) {
@@ -176,7 +176,7 @@ function getActionsByRoll(roll) {
               "<div>" +
               "444, le joueur devient la Gourgandine. Il doit s'interposer à chaque lancer de dés de la même façon que la Catin " +
               "</div>";
-            setRole("Gourgandine");
+            text += setRole("Gourgandine");
           } else {
             //4 = Dieu
             if (roll[0] == 4 && roll[1] == 4) {
@@ -184,7 +184,7 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "44, le joueur devient Dieu tout puissant et pourra attaquer le village quand la somme fait 7" +
                 "</div>";
-              setRole("Dieu");
+              text += setRole("Dieu");
             }
             //3 = Dieu attaque le village
             if (roll[0] == 3 || roll[1] == 3) {
@@ -208,7 +208,7 @@ function getActionsByRoll(roll) {
                   "<div>" +
                   "41, Le joueur devient la Catin et s'interpose quand Dieu attaque le village" +
                   "</div>";
-                setRole("Catin");
+                text += setRole("Catin");
               }
             }
           }
@@ -227,7 +227,7 @@ function getActionsByRoll(roll) {
               "<div>" +
               "333, le joueur devient l'Apprenti et bois autant de gorgées bues par les autres joueurs" +
               "</div>";
-            setRole("Apprenti");
+            text += setRole("Apprenti");
           } else {
             //3 = Héros
             if (roll[0] == 3 && roll[1] == 3) {
@@ -239,7 +239,7 @@ function getActionsByRoll(roll) {
                 text +=
                   "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
               } else {
-                setRole("Héros");
+                text += setRole("Héros");
               }
             }
             //2 = Prisonnier
@@ -260,7 +260,7 @@ function getActionsByRoll(roll) {
                   roll[2] +
                   " gorgée(s) pour fêter ça" +
                   "</div>";
-                setRole("Prisonnier");
+                text += setRole("Prisonnier");
               }
             }
           }
@@ -279,7 +279,7 @@ function getActionsByRoll(roll) {
                   text +=
                     "<div>Le Héros ne peut pas se servir lui-même. Son tour ne sert à rien, il boit</div>";
                 } else {
-                  setRole("Ecuyer");
+                  text += setRole("Ecuyer");
                 }
               }
             } else {
@@ -300,7 +300,7 @@ function getActionsByRoll(roll) {
               "</div>";
             text +=
               "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-            //setRole("Devin");
+            //text+=setRole("Devin");
           } else {
             //2 = Héros
             if (roll[0] == 2 && roll[1] == 2) {
@@ -312,7 +312,7 @@ function getActionsByRoll(roll) {
                 text +=
                   "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
               } else {
-                setRole("Héros");
+                text += setRole("Héros");
               }
             }
             //2 = Oracle
@@ -321,7 +321,7 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "21, le joueur devient Oracle et tentera de prédire le lancer du Héros (WIP)" +
                 "</div>";
-              setRole("Oracle");
+              text += setRole("Oracle");
             }
           }
         }
@@ -333,7 +333,7 @@ function getActionsByRoll(roll) {
               "<div>" +
               "111, le joueur devient le Clochard et boira le dé spécial à chaque lancer pendant un tour" +
               "</div>";
-            setRole("Clochard");
+            text += setRole("Clochard");
           } else {
             //1 = Héros
             if (roll[0] == 1 && roll[1] == 1) {
@@ -345,7 +345,7 @@ function getActionsByRoll(roll) {
                 text +=
                   "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
               } else {
-                setRole("Héros");
+                text += setRole("Héros");
               }
             }
           }
@@ -360,14 +360,21 @@ function getActionsByRoll(roll) {
 }
 
 function setRole(role) {
+  var text = "";
   if (roleExist(role)) {
     var playerIndex = getPlayerByRole(role);
     if (playerIndex != index) {
       var roleIndex = players[playerIndex].roles.indexOf(role);
       players[playerIndex].roles.splice(roleIndex, 1);
+      players[index].roles.push(role);
+    } else {
+      text +=
+        "<div> Le joueur est déjà " + role + ". Il boit pour oublier ça </div>";
     }
+  } else {
+    players[index].roles.push(role);
   }
-  players[index].roles.push(role);
+  return text;
 }
 
 function getPlayerByRole(role) {
@@ -494,12 +501,12 @@ function checkSpecial() {
     if (players[index].roles.includes("Dieu")) {
       text += "<div>Dieu ne saurait devenir le Héros. Il reste Dieu</div>";
     } else {
-      setRole("Héros");
+      text += setRole("Héros");
     }
   }
   if (players[index].roles.includes("Devin")) {
     players[index].roles.splice("Devin");
-    setRole("Oracle");
+    text += setRole("Oracle");
     text += "Fin du tour spécial: Le Devin perd ses pouvoirs et devient Oracle";
   }
   if (players[index].roles.includes("Apprenti")) {
@@ -510,15 +517,15 @@ function checkSpecial() {
       text += "<div>Dieu ne saurait devenir l'Ecuyer. Il reste Dieu</div>";
     } else {
       if (players[index].roles.includes("Héros")) {
-        text += "<div>Le joueur est déjà Héros</div>";
+        text += "<div>Le joueur ne peut devenir son propre Ecuyer</div>";
       } else {
-        setRole("Ecuyer");
+        text += setRole("Ecuyer");
       }
     }
   }
   if (players[index].roles.includes("Gourgandine")) {
     players[index].roles.splice("Gourgandine");
-    setRole("Catin");
+    text += setRole("Catin");
     text +=
       "Fin du tour spécial: La Gourgandine a fini de jouer et devient la Catin";
   }
@@ -529,12 +536,12 @@ function checkSpecial() {
     if (players[index].roles.includes("Héros")) {
       text += "<div>Le Héros ne peut pas devenir Princesse</div>";
     } else {
-      setRole("Princesse");
+      text += setRole("Princesse");
     }
   }
   if (players[index].roles.includes("Démon")) {
     players[index].roles.splice("Démon");
-    setRole("Dieu");
+    text += setRole("Dieu");
     text += "Fin du tour spécial: le Démon calme sa colère et devient Dieu";
   }
   document.getElementById("special").innerHTML = text;
