@@ -7,7 +7,6 @@ document.write("<div>. Maitre du destin</div>");
 document.write("<div>. Impératrice</div>");
 document.write("<div>- Supprimer un joueur</div>");
 document.write("<div>- Rôles incompatibles</div>");
-document.write("<div>. Héros ne peut pas être Princesse</div>");
 document.write("<div>. Catin devient Dieu mais perd son rôle</div>");
 document.write("<div>. Héros devient Dieu mais perd son rôle</div>");
 document.write("<div>. Ecuyer devient Héros mais perd son rôle</div>");

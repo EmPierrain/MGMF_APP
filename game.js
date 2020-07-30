@@ -138,7 +138,13 @@ function getActionsByRoll(roll) {
                 "<div>" +
                 "54, Le joueur devient la Princesse et distribuera la moitié de ses gorgées au Héros" +
                 "</div>";
-              setRole("Princesse");
+
+              if (players[index].roles.includes("Héros")) {
+                text +=
+                  "<div>Le Héros ne peut pas devenir Princesse. Son tour ne sert à rien, le joueur boit</div>";
+              } else {
+                setRole("Princesse");
+              }
             }
             //3 = Aubergiste
             if (roll[0] == 3 || roll[1] == 3) {
@@ -170,9 +176,7 @@ function getActionsByRoll(roll) {
               "<div>" +
               "444, le joueur devient la Gourgandine. Il doit s'interposer à chaque lancer de dés de la même façon que la Catin " +
               "</div>";
-            text +=
-              "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
-            //setRole("Gourgandine");
+            setRole("Gourgandine");
           } else {
             //4 = Dieu
             if (roll[0] == 4 && roll[1] == 4) {
@@ -233,7 +237,7 @@ function getActionsByRoll(roll) {
                 "</div>";
               if (players[index].roles.includes("Dieu")) {
                 text +=
-                  "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+                  "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
               } else {
                 setRole("Héros");
               }
@@ -306,7 +310,7 @@ function getActionsByRoll(roll) {
                 "</div>";
               if (players[index].roles.includes("Dieu")) {
                 text +=
-                  "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+                  "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
               } else {
                 setRole("Héros");
               }
@@ -339,7 +343,7 @@ function getActionsByRoll(roll) {
                 "</div>";
               if (players[index].roles.includes("Dieu")) {
                 text +=
-                  "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+                  "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
               } else {
                 setRole("Héros");
               }
@@ -361,11 +365,9 @@ function setRole(role) {
     if (playerIndex != index) {
       var roleIndex = players[playerIndex].roles.indexOf(role);
       players[playerIndex].roles.splice(roleIndex, 1);
-      players[index].roles.push(role);
     }
-  } else {
-    players[index].roles.push(role);
   }
+  players[index].roles.push(role);
 }
 
 function getPlayerByRole(role) {
@@ -490,8 +492,7 @@ function checkSpecial() {
     text +=
       "<div>Fin du tour spécial: le Clochard trouve une maison et devient le Héros</div>";
     if (players[index].roles.includes("Dieu")) {
-      text +=
-        "<div>Dieu ne saurait devenir le Héro. Son tour ne sert à rien, il boit</div>";
+      text += "<div>Dieu ne saurait devenir le Héros. Il reste Dieu</div>";
     } else {
       setRole("Héros");
     }
@@ -504,14 +505,12 @@ function checkSpecial() {
   if (players[index].roles.includes("Apprenti")) {
     players[index].roles.splice("Apprenti");
     text +=
-      "Fin du tour spécial: L'Apprenti a fini son apprentisage et devient Ecuyer";
+      "Fin du tour spécial: L'Apprenti a fini d'étudier et devient Ecuyer";
     if (players[index].roles.includes("Dieu")) {
-      text +=
-        "<div>Dieu ne saurait devenir l'Ecuyer. Son tour ne sert à rien, il boit</div>";
+      text += "<div>Dieu ne saurait devenir l'Ecuyer. Il reste Dieu</div>";
     } else {
       if (players[index].roles.includes("Héros")) {
-        text +=
-          "<div>Le Héros ne peut pas se servir lui-même. Son tour ne sert à rien, il boit</div>";
+        text += "<div>Le joueur est déjà Héros</div>";
       } else {
         setRole("Ecuyer");
       }
@@ -525,9 +524,13 @@ function checkSpecial() {
   }
   if (players[index].roles.includes("Impératrice")) {
     players[index].roles.splice("Impératrice");
-    setRole("Princesse");
     text +=
       "Fin du tour spécial: L'Impératrice perd son status et devient Princesse";
+    if (players[index].roles.includes("Héros")) {
+      text += "<div>Le Héros ne peut pas devenir Princesse</div>";
+    } else {
+      setRole("Princesse");
+    }
   }
   if (players[index].roles.includes("Démon")) {
     players[index].roles.splice("Démon");
