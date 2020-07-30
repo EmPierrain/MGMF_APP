@@ -1,13 +1,24 @@
 function play() {
+  /*
+   * Main function that'll be used when clicking the play button
+   */
+
   document.getElementById("round").innerHTML = "Tour de " + players[index].name;
+  /* Check if the player lose his special role */
   checkSpecial();
+  /* Rolling three dices */
   var dices = rollDices();
+  /* Do the actions depending of the roll */
   getActionsByRoll(dices);
+  /* Update the Player list */
   getPlayers();
   index = (index + 1) % players.length;
 }
 
 function rollDices() {
+  /*
+   * Roll three different dices
+   */
   var dices = new Array();
   dices.push(getRandomInt(6));
   dices.push(getRandomInt(6));
@@ -16,12 +27,20 @@ function rollDices() {
 }
 
 function getRandomInt(max) {
+  /*
+   * Get an int from 1 to max
+   */
   return Math.floor(1 + Math.random() * Math.floor(max));
 }
 
 function getActionsByRoll(roll) {
+  /*
+   * Main function that handle different actions depending of the roll
+   * and attribute them depending of the rules
+   */
   var jeu = true;
   var text = "";
+  /* We write the roll so the player can see it */
   document.getElementById("dices").innerHTML =
     "Lancer de dés: " +
     "<span class='dice'>" +
@@ -30,45 +49,56 @@ function getActionsByRoll(roll) {
     roll[1] +
     "</span> <span class='dice special'>" +
     roll[2];
+
+  /* Checking if the Clochard is in game */
   if (roleExist("Clochard")) {
     text += "<div> Le Clochard boit " + roll[2] + " gorgée(s) </div>";
   }
+  /* Checking if the Démon is in game */
   if (roleExist("Démon")) {
     text += "<div> Le Démon distribue " + roll[2] + " gorgée(s) </div>";
   }
+  /* Checking if Gourgandine is in game */
   if (roleExist("Gourgandine")) {
+    /* The Gourgandine try to oppose the roll */
     text += "<div> La Gourgandine s'interpose !!!!</div>";
     var dice = getRandomInt(6);
     text += "<div> La Gourgandine fait " + dice + "</div>";
+    /* If the Gourgandine roll 1, the roll is over */
     if (dice === 1) {
       text +=
         "<div> La Gourgandine s'est interposée et le tour n'a pas lieu </div>";
       jeu = false;
     } else {
+      /* Else we continue and the Gourgandine drink her roll */
       text +=
         "<div> La Gourgandine ne s'est pas interposée et boit " +
         dice +
         " gorgée(s)</div>";
     }
   }
+  /* The game start now */
   if (jeu) {
+    /* If the player is in prison */
     if (
       players[index].roles.includes("Prisonnier") &&
       (roll[0] === 3 || roll[1] === 3)
     ) {
+      /* If he roll a 3 he got out and play */
       players[index].roles.splice("Prisonnier");
       text +=
         "<div>" + "Le joueur sort de prison. Il boit pour fêter ça" + "</div>";
     } else {
       if (players[index].roles.includes("Prisonnier")) {
+        /* Else, his turn is over */
         text +=
           "<div>" +
           "Le joueur ne sort pas de prison. Son lancer ne sert à rien et il boit" +
           "</div>";
       } else {
-        //6
+        /* If one of the roll is a 6 */
         if (roll[0] == 6 || roll[1] == 6) {
-          //Distribution
+          /* The player distribute the second dice */
           if (roll[0] == 6) {
             text +=
               "<div>" +
@@ -82,7 +112,7 @@ function getActionsByRoll(roll) {
               roll[0] +
               " gorgée(s) à qui il souhaite</div>";
           }
-          //666 = Démon
+          /* If the roll is a 66 and the special dice is a 6 the player became a Démon */
           if (roll[0] == 6 && roll[1] == 6 && roll[2] == 6) {
             text +=
               "<div>" +
@@ -90,7 +120,7 @@ function getActionsByRoll(roll) {
               "</div>";
             text += setRole("Démon");
           } else {
-            //6 = Dieu
+            /* If the roll is a 66, the player became Dieu */
             if (roll[0] == 6 && roll[1] == 6) {
               text +=
                 "<div>" +
@@ -98,7 +128,7 @@ function getActionsByRoll(roll) {
                 "</div>";
               text += setRole("Dieu");
             }
-            //5 = Dragon
+            /* If the roll is a 65, the player became Dragon */
             if (roll[0] == 5 || roll[1] == 5) {
               text +=
                 "<div>" +
@@ -106,15 +136,15 @@ function getActionsByRoll(roll) {
                 "</div>";
               text += setRole("Dragon");
             }
-            //1 = Dieu attaque le village
+            /* If the roll is a 61, Dieu ateck the village */
             if (roll[0] == 1 || roll[1] == 1) {
               text += dieuAttaqueLeVillage(roll[2]);
             }
           }
         }
-        //5
+        /* If one of the roll is a 5 */
         if (roll[0] == 5 || roll[1] == 5) {
-          //555 = Impératrice
+          /* If the roll is a 55 and the special dice is a 5 the player became a Imperatrice */
           if (roll[0] == 5 && roll[1] == 5 && roll[2] == 5) {
             text +=
               "<div>" +
@@ -124,7 +154,7 @@ function getActionsByRoll(roll) {
               "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
             //text+=setRole("Impératrice");
           } else {
-            //5 = Dieu
+            /* If the roll is a 55, the player became Dieu */
             if (roll[0] == 5 && roll[1] == 5) {
               text +=
                 "<div>" +
@@ -132,13 +162,13 @@ function getActionsByRoll(roll) {
                 "</div>";
               text += setRole("Dieu");
             }
-            //4 = Princesse
+            /* If the roll is a 54, the player became Dragon */
             if (roll[0] == 4 || roll[1] == 4) {
               text +=
                 "<div>" +
                 "54, Le joueur devient la Princesse et distribuera la moitié de ses gorgées au Héros" +
                 "</div>";
-
+              /* The Hero can't become the Princesse */
               if (players[index].roles.includes("Héros")) {
                 text +=
                   "<div>Le Héros ne peut pas devenir Princesse. Son tour ne sert à rien, le joueur boit</div>";
@@ -146,7 +176,7 @@ function getActionsByRoll(roll) {
                 text += setRole("Princesse");
               }
             }
-            //3 = Aubergiste
+            /* If the roll is a 53, the player became the Aubergiste */
             if (roll[0] == 3 || roll[1] == 3) {
               text +=
                 "<div>" +
@@ -154,11 +184,11 @@ function getActionsByRoll(roll) {
                 "</div>";
               text += setRole("Aubergiste");
             }
-            //2 = Dieu attaque le village
+            /* If the roll is a 52, Dieu attacks the village */
             if (roll[0] == 2 || roll[1] == 2) {
               text += dieuAttaqueLeVillage(roll[2]);
             }
-            //1
+            /* If the roll is a 51, everyone drinks */
             if (roll[0] == 1 || roll[1] == 1) {
               text +=
                 "<div>" +
@@ -168,9 +198,9 @@ function getActionsByRoll(roll) {
             }
           }
         }
-        //4
+        /* If one of the roll is a 4 */
         if (roll[0] == 4 || roll[1] == 4) {
-          //444 = Gourgandine
+          /* If the roll is a 44 and the special dice is a 4 the player became a Gourgandine */
           if (roll[0] == 4 && roll[1] == 4 && roll[2] == 4) {
             text +=
               "<div>" +
@@ -178,7 +208,7 @@ function getActionsByRoll(roll) {
               "</div>";
             text += setRole("Gourgandine");
           } else {
-            //4 = Dieu
+            /* If the roll is a 44, The player become Dieu */
             if (roll[0] == 4 && roll[1] == 4) {
               text +=
                 "<div>" +
@@ -186,11 +216,11 @@ function getActionsByRoll(roll) {
                 "</div>";
               text += setRole("Dieu");
             }
-            //3 = Dieu attaque le village
+            /* If the roll is a 43, Dieu attacks the village */
             if (roll[0] == 3 || roll[1] == 3) {
               text += dieuAttaqueLeVillage(roll[2]);
             }
-            //2
+            /* If the roll is a 42, everyone drinks */
             if (roll[0] == 2 || roll[1] == 2) {
               text +=
                 "<div>" +
@@ -198,8 +228,9 @@ function getActionsByRoll(roll) {
                 roll[2];
               (" gorgées</div>");
             }
-            //1 = Catin
+            /* If the roll is a 41, the player become the Catin */
             if (roll[0] == 1 || roll[1] == 1) {
+              /* Dieu cannot be the Catin */
               if (players[index].roles.includes("Dieu")) {
                 text +=
                   "<div> Dieu ne saurait devenir la Catin. Son tour ne sert à rien, il boit </div>";
@@ -213,15 +244,16 @@ function getActionsByRoll(roll) {
             }
           }
         }
-        //3
+        /* If one of the roll is a 3 */
         if (roll[0] == 3 || roll[1] == 3) {
+          /* If there is a Prisonnier in the game, he drink */
           if (roleExist("Prisonnier")) {
             text +=
               "<div>" +
               "Le Prisonnier boit autant qu'il y a de 3 dans le lancer" +
               "</div>";
           }
-          //333 = Apprenti
+          /* If the roll is a 33 and the special dice is a 3 the player became the Apprenti */
           if (roll[0] == 3 && roll[1] == 3 && roll[2] == 3) {
             text +=
               "<div>" +
@@ -229,12 +261,13 @@ function getActionsByRoll(roll) {
               "</div>";
             text += setRole("Apprenti");
           } else {
-            //3 = Héros
+            /* If the roll is a 33, the player become the Héros */
             if (roll[0] == 3 && roll[1] == 3) {
               text +=
                 "<div>" +
                 "33, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
                 "</div>";
+              /* Dieu cannot becomme the Héro */
               if (players[index].roles.includes("Dieu")) {
                 text +=
                   "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
@@ -242,16 +275,18 @@ function getActionsByRoll(roll) {
                 text += setRole("Héros");
               }
             }
-            //2 = Prisonnier
+            /* If the roll is a 32, the player enter the prison */
             if (roll[0] == 2 || roll[1] == 2) {
               text +=
                 "<div>" +
                 "32, le joueur devient Prisonnier et boira à chaque dé valant 3" +
                 "</div>";
+              /* There can be only one player in prison */
               if (roleExist("Prisonnier")) {
                 text +=
                   "<div> Il y a déjà quelqu'un en prison. Le lancer ne sert à rien, le joueur boit </div>";
               } else {
+                /* If a player enter the prison, he lose all his roles */
                 while (players[index].roles.length != 0) {
                   players[index].roles.splice(0, 1);
                 }
@@ -264,17 +299,20 @@ function getActionsByRoll(roll) {
               }
             }
           }
-          //1 = Ecuyer
+          /* If the roll is a 31, the player become the Ecuyer */
           if (roll[0] == 1 || roll[1] == 1) {
             text +=
               "<div>" +
               "31, le joueur devient Ecuyer et boira autant de gorgées que le Héros" +
               "</div>";
+            /* There can be an Ecuyer only if there is a Héros */
             if (roleExist("Héros")) {
+              /* Dieu cannot be an Ecuyer */
               if (players[index].roles.includes("Dieu")) {
                 text +=
                   "<div>Dieu ne saurait devenir l'Ecuyer. Son tour ne sert à rien, il boit</div>";
               } else {
+                /* The Héros cannot be the Ecuyer */
                 if (players[index].roles.includes("Héros")) {
                   text +=
                     "<div>Le Héros ne peut pas se servir lui-même. Son tour ne sert à rien, il boit</div>";
@@ -290,9 +328,9 @@ function getActionsByRoll(roll) {
             }
           }
         }
-        //2
+        /* If one of the roll is a 2 */
         if (roll[0] == 2 || roll[1] == 2) {
-          //222 = Devin
+          /* If the roll is a 22 and the special dice is a 2 the player became the Devin */
           if (roll[0] == 2 && roll[1] == 2 && roll[2] == 2) {
             text +=
               "<div>" +
@@ -302,12 +340,13 @@ function getActionsByRoll(roll) {
               "<div>" + "Pas de rôle spécial pour le moment (WIP)" + "</div>";
             //text+=setRole("Devin");
           } else {
-            //2 = Héros
+            /* If the roll is a 22, the player become the Héros */
             if (roll[0] == 2 && roll[1] == 2) {
               text +=
                 "<div>" +
                 "22, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
                 "</div>";
+              /* Dieu cannot be the Heros */
               if (players[index].roles.includes("Dieu")) {
                 text +=
                   "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
@@ -315,7 +354,7 @@ function getActionsByRoll(roll) {
                 text += setRole("Héros");
               }
             }
-            //2 = Oracle
+            /* If the roll is a 21, the player become the Oracle */
             if (roll[0] == 1 || roll[1] == 1) {
               text +=
                 "<div>" +
@@ -325,9 +364,9 @@ function getActionsByRoll(roll) {
             }
           }
         }
-        //1
+        /* If one of the roll is a 1 */
         if (roll[0] == 1 || roll[1] == 1) {
-          //111 = Clochard
+          /* If the roll is a 11 and the special dice is a 1 the player became the Clochard */
           if (roll[0] == 1 && roll[1] == 1 && roll[2] == 1) {
             text +=
               "<div>" +
@@ -335,12 +374,13 @@ function getActionsByRoll(roll) {
               "</div>";
             text += setRole("Clochard");
           } else {
-            //1 = Héros
+            /* If the roll is a 21, the player become the Héros */
             if (roll[0] == 1 && roll[1] == 1) {
               text +=
                 "<div>" +
                 "11, le joueur devient Héros et s'interposera quand Dieu attaquera le village" +
                 "</div>";
+              /* Dieu cannot become the Héros */
               if (players[index].roles.includes("Dieu")) {
                 text +=
                   "<div>Dieu ne saurait devenir le Héros. Son tour ne sert à rien, il boit</div>";
@@ -353,6 +393,7 @@ function getActionsByRoll(roll) {
       }
     }
   }
+  /* If the Apprenti is in game, we remember him to drink */
   if (roleExist("Apprenti")) {
     text += "<div> L'Apprenti n'oublie pas de prendre ses gorgées! </div>";
   }
