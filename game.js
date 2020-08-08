@@ -401,37 +401,54 @@ function getActionsByRoll(roll) {
 }
 
 function setRole(role) {
+  /*
+   * Function that set the role of a player and check if the role already
+   * exists
+   */
   var text = "";
+  /* If the role is already in game */
   if (roleExist(role)) {
     var playerIndex = getPlayerByRole(role);
+    /* And if the role is not the player's */
     if (playerIndex != index) {
       var roleIndex = players[playerIndex].roles.indexOf(role);
+      /* The player with the role lose it and the player get the role */
       players[playerIndex].roles.splice(roleIndex, 1);
       players[index].roles.push(role);
     } else {
+      /* If the player already have this role, he drink */
       text +=
         "<div> Le joueur est déjà " + role + ". Il boit pour oublier ça </div>";
     }
   } else {
+    /* If no one has the role, it is directly attributed */
     players[index].roles.push(role);
   }
   return text;
 }
 
 function getPlayerByRole(role) {
+  /*
+   * Function that return the index of the player that have the role in argument
+   */
   var found = false;
   var playerIndex = 0;
   var roleIndex = 0;
+  /* While the player isn't found or there is more player to check */
   while (!found && playerIndex < players.length) {
     roleIndex = 0;
+    /* We check every role until we found it or there is no more */
     while (!found && roleIndex < players[playerIndex].roles.length) {
+      /* If the current player have the role, we found it */
       if (players[playerIndex].roles[roleIndex] === role) {
         found = true;
       } else {
+        /* Else we go to the next role */
         roleIndex += 1;
       }
     }
     if (!found) {
+      /* If the current player don't have the role, we go to the next player */
       playerIndex += 1;
     }
   }
@@ -439,19 +456,27 @@ function getPlayerByRole(role) {
 }
 
 function roleExist(role) {
+  /*
+   * Function that check if someone has the role in argument
+   */
   var found = false;
   var playerIndex = 0;
   var roleIndex = 0;
+  /* While we didn't found the role or there is more player to check */
   while (!found && playerIndex < players.length) {
     roleIndex = 0;
+    /* We check each role of the player */
     while (!found && roleIndex < players[playerIndex].roles.length) {
       if (players[playerIndex].roles[roleIndex] === role) {
+        /* If the player have the role, it is found */
         found = true;
       } else {
+        /* else, we check the next role */
         roleIndex += 1;
       }
     }
     if (!found) {
+      /* If we didn't found the role, we check the next player */
       playerIndex += 1;
     }
   }

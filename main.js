@@ -12,7 +12,6 @@ document.write("<div>. Héros devient Dieu mais perd son rôle</div>");
 document.write("<div>. Ecuyer devient Héros mais perd son rôle</div>");
 document.write("<div>. Princesse devient Héros mais perd son rôle</div>");
 document.write("<div>- Rajouter rôle de l'Oracle</div>");
-document.write("<div>- Rajouter le rôle de l'Aubergiste</div>");
 document.write("<div>- Rendre ça jolie? PTDR</div>");
 document.write("<div>- Ajouter commentaire au code? PTDR</div>");
 document.write("<div>- Associer un rôle à un joueur pendant un tour</div>");
