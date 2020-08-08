@@ -35,6 +35,7 @@ document.write("<h2> MGMF_APP </h2>");
 document.write("</header>");
 
 /* Player List on the left */
+document.write("<section>");
 document.write('<div id="playerListDiv">');
 document.write(
   "<div><label for='playerName'>Joueur à ajouter:</label><input type='text' id='playerName' name='player_Name'><button id= 'addButton' type='button' onclick='addPlayer(document.getElementById(\"playerName\").value)'>Ajouter</button> </div>"
@@ -44,6 +45,7 @@ document.write("<div id='playerList'>Liste des joueurs:</div>");
 document.write("</div>");
 
 /* Action Zone */
+document.write('<div id="actionsDiv">');
 document.write(
   "<p><div>Zone d'action:<div><button type='button' onclick='play()'>Jouer un tour</button> </div></div>"
 );
@@ -54,6 +56,12 @@ document.write("<p><div id='dices'>Lancer de dés:</div>");
 document.write("<div id='special'></div>");
 
 document.write("<div id='actions'>Actions:</div>");
+document.write("</div>");
+
+document.write("</section>");
+
+/* Footer Zone */
+document.write("<footer> <p>Footer</p></footer>");
 
 var players = new Array();
 var index = 0;
