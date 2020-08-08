@@ -1,48 +1,20 @@
-* {
-  box-sizing: border-box;
+.leftside,
+.rightside {
+  height: 50vh;
+  width: 100%;
 }
 
-header {
-  background-color: #666;
-  padding: 30px;
-  text-align: center;
-  font-size: 35px;
-  color: white;
-}
-
-#playerListDiv {
-  float: left;
-  width: 30%;
-  background: #ccc;
-  padding: 20px;
-  height: auto;
-}
-
-#actionsDiv {
-  float: left;
-  padding: 20px;
-  width: 70%;
-  background-color: #f1f1f1;
-  height: auto;
-}
-
-section:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
-
-@media (max-width: 600px) {
-  nav,
-  article {
-    width: 100%;
-    height: auto;
+@media screen and (min-width: 768px) {
+  .leftside,
+  .rightside {
+    height: 100vh;
   }
+}
+
+.leftside {
+  background: #6c6664;
+}
+
+.rightside {
+  background: #bdbab8;
 }

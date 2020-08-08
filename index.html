@@ -5,6 +5,7 @@
     <title>MGMF_APP</title>
     <script src="player.js"></script>
     <script src="game.js"></script>
+    <script src="main.js"></script>
     <script
       src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
@@ -19,6 +20,126 @@
     <link rel="stylesheet" type="text/css" href="stylesheet.css" />
   </head>
   <body>
-    <script src="main.js"></script>
+    <!--
+    <div>
+      TODO List:
+    </div>
+    <div>
+      - Ajouter le rôle du Dragon
+    </div>
+    <div>
+      - Ajouter des explications + conte
+    </div>
+    <div>
+      - Ajouter la bataille de Héros et de Dieu
+    </div>
+    <div>
+      - Ajouter Les rôles spéciaux
+    </div>
+    <div>
+      . Maitre du destin
+    </div>
+    <div>
+      . Impératrice
+    </div>
+    <div>
+      - Supprimer un joueur
+    </div>
+    <div>
+      - Rôles incompatibles
+    </div>
+    <div>
+      . Catin devient Dieu mais perd son rôle
+    </div>
+    <div>
+      . Héros devient Dieu mais perd son rôle
+    </div>
+    <div>
+      . Ecuyer devient Héros mais perd son rôle
+    </div>
+    <div>
+      . Princesse devient Héros mais perd son rôle
+    </div>
+    <div>
+      - Rajouter rôle de l'Oracle
+    </div>
+    <div>
+      - Rendre ça jolie? PTDR
+    </div>
+    <div>
+      - Ajouter commentaire au code? PTDR
+    </div>
+    <div>
+      - Associer un rôle à un joueur pendant un tour
+    </div>
+    <div>
+      - Ajouter des easter eggs
+    </div>
+    <div>
+      - Ajouter de l'intéraction
+    </div>
+
+    <div style="height: 42px; width: 100%;"></div>
+  -->
+
+    <!-- Player List on the left -->
+    <div class="row no-gutters">
+      <div class="col-md-2 no-gutters">
+        <div class="leftside">
+          <h2>
+            MGMF_APP
+          </h2>
+          <div>
+            <label for="playerName">
+              Joueur à ajouter:
+            </label>
+            <input type="text" id="playerName" name="player_Name" />
+            <button
+              id="addButton"
+              type="button"
+              onclick="addPlayer(playerName.value)"
+            >
+              Ajouter
+            </button>
+
+            <script>
+              var input = document.getElementById("playerName");
+              input.addEventListener("keyup", function (event) {
+                if (event.keyCode === 13) {
+                  event.preventDefault();
+                  document.getElementById("addButton").click();
+                }
+              });
+            </script>
+          </div>
+          <div id="playerExist"></div>
+          <div id="playerList">
+            Liste des joueurs:
+          </div>
+        </div>
+      </div>
+      <div class="col-md-10 no-gutters">
+        <div class="rightside">
+          <div>
+            Zone d'action:
+            <div>
+              <button type="button" onclick="play()">
+                Jouer un tour
+              </button>
+            </div>
+          </div>
+          <div id="round">
+            Tour de
+          </div>
+          <div id="dices">
+            Lancer de dés:
+          </div>
+          <div id="special"></div>
+          <div id="actions">
+            Actions:
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
