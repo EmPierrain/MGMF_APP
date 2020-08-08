@@ -29,11 +29,21 @@ document.write("<div>- Ajouter de l'intéraction</div>");
 
 document.write("<div style='height:42px; width:100%'></div>");
 
+/* Header Part */
+document.write("<header>");
+document.write("<h2> MGMF_APP </h2>");
+document.write("</header>");
+
+/* Player List on the left */
+document.write('<div id="playerListDiv">');
 document.write(
   "<div><label for='playerName'>Joueur à ajouter:</label><input type='text' id='playerName' name='player_Name'><button id= 'addButton' type='button' onclick='addPlayer(document.getElementById(\"playerName\").value)'>Ajouter</button> </div>"
 );
 document.write("<div id='playerExist'></div>");
 document.write("<div id='playerList'>Liste des joueurs:</div>");
+document.write("</div>");
+
+/* Action Zone */
 document.write(
   "<p><div>Zone d'action:<div><button type='button' onclick='play()'>Jouer un tour</button> </div></div>"
 );
