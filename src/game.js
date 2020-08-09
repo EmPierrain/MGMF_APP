@@ -43,12 +43,15 @@ function getActionsByRoll(roll) {
   /* We write the roll so the player can see it */
   document.getElementById("dices").innerHTML =
     "Lancer de dés: " +
-    "<span class='dice'>" +
+    '<img src="assets/' +
     roll[0] +
-    "</span> <span class='dice'>" +
+    '.png" alt="" />' +
+    '<img src="assets/' +
     roll[1] +
-    "</span> <span class='dice special'>" +
-    roll[2];
+    '.png" alt="" />' +
+    '<img src="assets/special_' +
+    roll[2] +
+    '.png" alt="" />';
 
   /* Checking if the Clochard is in game */
   if (roleExist("Clochard")) {
