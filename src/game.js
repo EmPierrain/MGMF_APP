@@ -66,6 +66,8 @@ function getActionsByRoll(roll) {
     /* The Gourgandine try to oppose the roll */
     text += "<div> La Gourgandine s'interpose !!!!</div>";
     var dice = getRandomInt(6);
+    text +=
+      'Lancer de la Gourdandine: <img src="assets/' + dice + '.png" alt="" />';
     text += "<div> La Gourgandine fait " + dice + "</div>";
     /* If the Gourgandine roll 1, the roll is over */
     if (dice === 1) {
@@ -494,6 +496,8 @@ function dieuAttaqueLeVillage(value) {
     text += "<div> La Catin s'interpose </div>";
     if (roleExist("Catin")) {
       var dice = getRandomInt(6);
+      text +=
+        'Lancer de la Catin: <img src="assets/' + dice + '.png" alt="" />';
       text += "<div> La Catin fait " + dice + "</div>";
       if (dice === 1) {
         text += "<div> La Catin s'est interposée </div>";
@@ -511,6 +515,8 @@ function dieuAttaqueLeVillage(value) {
         text += "<div> L'Oracle prédit le score du Héros (WIP)</div>";
         // TODO rôle de l'Oracle
         dice = getRandomInt(6);
+        text += 'Lancer du Héros: <img src="assets/' + dice + '.png" alt="" />';
+
         text += "<div> Le Héros fait " + dice + "</div>";
         switch (dice) {
           case 1:
