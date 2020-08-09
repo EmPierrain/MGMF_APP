@@ -13,10 +13,12 @@ function getPlayers() {
   var text = "";
   text += "<div>Liste des joueurs:</div>";
   players.forEach(function (player) {
-    text += "<div>" + player.name + " ";
+    text += "<div id= 'playerNameDiv'>" + player.name + ":";
+    text += "<div id= 'rolesDiv'>";
     player.roles.forEach(function (role) {
       text += role + " ";
     });
+    text += "</div>";
     text += "</div>";
   });
   document.getElementById("playerList").innerHTML = text;

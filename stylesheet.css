@@ -12,9 +12,19 @@
 }
 
 .leftside {
-  background: #6c6664;
+  background: #272932;
+  color: #4d7ea8;
 }
 
 .rightside {
-  background: #bdbab8;
+  background: #828489;
+}
+
+#playerNameDiv {
+  font: bold;
+  color: red;
+}
+
+#rolesDiv {
+  color: blue;
 }
